@@ -3,12 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="./favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="format-detection" content="telephone=no" />
     <title>Nightmare Hunter</title>
-
+    
     <style>
       * {
         box-sizing: border-box;
@@ -32,6 +33,7 @@
         left: 0;
         right: 0;
         bottom: 0;
+        -webkit-overflow-scrolling: touch;
       }
       
       #game-container {
@@ -46,6 +48,8 @@
         justify-content: center;
         align-items: center;
         background: #000000;
+        touch-action: none;
+        overflow: hidden;
       }
       
       #game-container canvas {
@@ -53,6 +57,101 @@
         max-width: 100%;
         max-height: 100%;
         touch-action: none;
+      }
+      
+      /* Debug overlay for mobile error display */
+      #debug-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        max-height: 40%;
+        overflow-y: auto;
+        background: rgba(0, 0, 0, 0.9);
+        color: #ff6b6b;
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        line-height: 1.4;
+        padding: 8px;
+        z-index: 99999;
+        display: none;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        touch-action: pan-y;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      #debug-overlay.visible {
+        display: block;
+      }
+      
+      #debug-overlay .error-header {
+        color: #ff4444;
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+      
+      #debug-overlay .error-message {
+        color: #ffaaaa;
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #333;
+      }
+      
+      #debug-overlay .close-btn {
+        position: absolute;
+        top: 4px;
+        right: 8px;
+        color: #888;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 4px 8px;
+      }
+      
+      /* WebGL context lost overlay */
+      #webgl-lost-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.95);
+        color: white;
+        font-family: Arial, sans-serif;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        z-index: 99998;
+        padding: 20px;
+      }
+      
+      #webgl-lost-overlay.visible {
+        display: flex;
+      }
+      
+      #webgl-lost-overlay h2 {
+        color: #ff6b6b;
+        margin-bottom: 16px;
+        font-size: 20px;
+      }
+      
+      #webgl-lost-overlay p {
+        color: #aaa;
+        margin-bottom: 24px;
+        font-size: 14px;
+      }
+      
+      #webgl-lost-overlay button {
+        padding: 12px 32px;
+        font-size: 16px;
+        background: #7c3aed;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        touch-action: manipulation;
       }
       
       /* Safe area handling for notched devices */
@@ -65,10 +164,208 @@
         }
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-C7prOYKj.js"></script>
+    <script type="module" crossorigin src="./assets/index-DaoTQczZ.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-Cf-mPpag.css">
   </head>
   <body>
     <div id="game-container"></div>
+    
+    <!-- Debug overlay for mobile error display -->
+    <div id="debug-overlay">
+      <span class="close-btn" onclick="document.getElementById('debug-overlay').classList.remove('visible')">&times;</span>
+      <div id="debug-content"></div>
+    </div>
+    
+    <!-- WebGL context lost overlay -->
+    <div id="webgl-lost-overlay">
+      <h2>Graphics Error</h2>
+      <p>The game's graphics context was lost.<br>This can happen due to low memory or background activity.</p>
+      <button onclick="window.location.reload()">Reload Game</button>
+    </div>
+    
+    <!-- Global error handlers - MUST load before main.ts -->
+    <script>
+      (function() {
+        'use strict';
+        
+        // Error storage
+        var errors = [];
+        var maxErrors = 10;
+        
+        // Debug overlay management
+        function showError(type, message, stack) {
+          var debugOverlay = document.getElementById('debug-overlay');
+          var debugContent = document.getElementById('debug-content');
+          
+          if (!debugOverlay || !debugContent) return;
+          
+          // Add error to list
+          errors.push({
+            type: type,
+            message: message,
+            stack: stack,
+            time: new Date().toLocaleTimeString()
+          });
+          
+          // Keep only recent errors
+          if (errors.length > maxErrors) {
+            errors.shift();
+          }
+          
+          // Render errors
+          var html = '';
+          for (var i = errors.length - 1; i >= 0; i--) {
+            var err = errors[i];
+            html += '<div class="error-header">[' + err.time + '] ' + err.type + '</div>';
+            html += '<div class="error-message">' + err.message;
+            if (err.stack) {
+              html += '\n' + err.stack;
+            }
+            html += '</div>';
+          }
+          
+          debugContent.innerHTML = html;
+          debugOverlay.classList.add('visible');
+        }
+        
+        // Global error handler
+        window.onerror = function(message, source, lineno, colno, error) {
+          var errorMessage = message || 'Unknown error';
+          var stack = '';
+          
+          if (error && error.stack) {
+            stack = error.stack.substring(0, 500);
+          } else if (source) {
+            stack = 'at ' + source + ':' + lineno + ':' + colno;
+          }
+          
+          console.error('[Global Error]', errorMessage, stack);
+          showError('Error', errorMessage, stack);
+          
+          // Don't prevent default - let error propagate for debugging
+          return false;
+        };
+        
+        // Unhandled promise rejection handler
+        window.addEventListener('unhandledrejection', function(event) {
+          var reason = event.reason;
+          var message = 'Promise rejected';
+          var stack = '';
+          
+          if (reason) {
+            if (typeof reason === 'string') {
+              message = reason;
+            } else if (reason.message) {
+              message = reason.message;
+              if (reason.stack) {
+                stack = reason.stack.substring(0, 500);
+              }
+            } else {
+              try {
+                message = JSON.stringify(reason).substring(0, 200);
+              } catch (e) {
+                message = 'Unknown promise rejection';
+              }
+            }
+          }
+          
+          console.warn('[Unhandled Rejection]', message, stack);
+          showError('Promise Rejection', message, stack);
+          
+          // Prevent unhandled rejection from crashing the app
+          event.preventDefault();
+        });
+        
+        // Console override to capture logs on mobile
+        var originalConsoleError = console.error;
+        console.error = function() {
+          originalConsoleError.apply(console, arguments);
+          
+          // Only show on mobile where DevTools isn't available
+          if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            var message = Array.prototype.slice.call(arguments).map(function(arg) {
+              if (typeof arg === 'object') {
+                try {
+                  return JSON.stringify(arg).substring(0, 200);
+                } catch (e) {
+                  return String(arg);
+                }
+              }
+              return String(arg);
+            }).join(' ');
+            
+            showError('Console.error', message.substring(0, 500), '');
+          }
+        };
+        
+        // WebGL context handling - setup after DOM is ready
+        function setupWebGLHandlers() {
+          var gameContainer = document.getElementById('game-container');
+          var webglLostOverlay = document.getElementById('webgl-lost-overlay');
+          
+          if (!gameContainer || !webglLostOverlay) return;
+          
+          // Find canvas (may be created later by Phaser)
+          function findAndSetupCanvas() {
+            var canvas = gameContainer.querySelector('canvas');
+            
+            if (!canvas) {
+              // Canvas not yet created, try again shortly
+              setTimeout(findAndSetupCanvas, 500);
+              return;
+            }
+            
+            // WebGL context lost handler
+            canvas.addEventListener('webglcontextlost', function(event) {
+              console.error('[WebGL] Context lost');
+              event.preventDefault(); // Allows potential recovery
+              
+              webglLostOverlay.classList.add('visible');
+              showError('WebGL', 'Graphics context lost - memory or GPU issue', '');
+            }, false);
+            
+            // WebGL context restored handler
+            canvas.addEventListener('webglcontextrestored', function(event) {
+              console.log('[WebGL] Context restored');
+              webglLostOverlay.classList.remove('visible');
+              
+              // Try to reload the current scene
+              try {
+                if (window.game && window.game.scene) {
+                  var activeScenes = window.game.scene.getScenes(true);
+                  if (activeScenes && activeScenes.length > 0) {
+                    var currentScene = activeScenes[0];
+                    currentScene.scene.restart();
+                  }
+                }
+              } catch (e) {
+                console.warn('[WebGL] Scene restart failed:', e);
+                // Fallback: reload page
+                window.location.reload();
+              }
+            }, false);
+            
+            console.log('[WebGL] Context handlers attached to canvas');
+          }
+          
+          // Start looking for canvas
+          findAndSetupCanvas();
+        }
+        
+        // Setup when DOM is ready
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', setupWebGLHandlers);
+        } else {
+          setupWebGLHandlers();
+        }
+        
+        // Expose error display function globally for debugging
+        window.showGameError = showError;
+        
+        console.log('[Debug] Error handlers initialized');
+      })();
+    </script>
+    
+    <!-- Main game module -->
   </body>
 </html>
