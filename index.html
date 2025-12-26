@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+    <!-- CRITICAL: Mobile viewport settings for iOS/Android -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -11,6 +12,13 @@
     <title>Nightmare Hunter</title>
     
     <style>
+      /* CSS Custom Properties for dynamic viewport handling */
+      :root {
+        --vvh: 1vh; /* Visual Viewport Height - updated by JS */
+        --game-width: 100vw;
+        --game-height: 100vh;
+      }
+      
       * {
         box-sizing: border-box;
         -webkit-tap-highlight-color: transparent;
@@ -33,23 +41,26 @@
         left: 0;
         right: 0;
         bottom: 0;
+        overscroll-behavior: none;
         -webkit-overflow-scrolling: touch;
       }
       
+      /* Game container - uses visualViewport height for true fullscreen on mobile */
       #game-container {
-        width: 100%;
-        height: 100%;
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
+        width: 100vw;
+        height: calc(var(--vvh, 1vh) * 100);
         display: flex;
         justify-content: center;
         align-items: center;
         background: #000000;
         touch-action: none;
         overflow: hidden;
+        overscroll-behavior: none;
       }
       
       #game-container canvas {
@@ -59,26 +70,27 @@
         touch-action: none;
       }
       
-      /* Debug overlay for mobile error display */
+      /* Debug overlay for mobile error display - ALWAYS visible when errors occur */
       #debug-overlay {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
-        max-height: 40%;
+        max-height: 35%;
         overflow-y: auto;
-        background: rgba(0, 0, 0, 0.9);
+        background: rgba(0, 0, 0, 0.95);
         color: #ff6b6b;
         font-family: 'Courier New', monospace;
-        font-size: 11px;
-        line-height: 1.4;
-        padding: 8px;
+        font-size: 10px;
+        line-height: 1.3;
+        padding: 6px;
         z-index: 99999;
         display: none;
         word-wrap: break-word;
         white-space: pre-wrap;
         touch-action: pan-y;
         -webkit-overflow-scrolling: touch;
+        pointer-events: auto;
       }
       
       #debug-overlay.visible {
@@ -88,24 +100,86 @@
       #debug-overlay .error-header {
         color: #ff4444;
         font-weight: bold;
-        margin-bottom: 4px;
+        margin-bottom: 2px;
+        font-size: 11px;
       }
       
       #debug-overlay .error-message {
         color: #ffaaaa;
-        margin-bottom: 8px;
-        padding-bottom: 8px;
+        margin-bottom: 6px;
+        padding-bottom: 6px;
         border-bottom: 1px solid #333;
+      }
+      
+      #debug-overlay .debug-info {
+        color: #88ff88;
+        font-size: 9px;
+        margin-bottom: 4px;
       }
       
       #debug-overlay .close-btn {
         position: absolute;
-        top: 4px;
-        right: 8px;
+        top: 2px;
+        right: 6px;
         color: #888;
-        font-size: 16px;
+        font-size: 18px;
         cursor: pointer;
         padding: 4px 8px;
+        pointer-events: auto;
+      }
+      
+      /* Watchdog overlay - shows when game is stuck */
+      #watchdog-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.98);
+        color: white;
+        font-family: Arial, sans-serif;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        z-index: 99997;
+        padding: 20px;
+      }
+      
+      #watchdog-overlay.visible {
+        display: flex;
+      }
+      
+      #watchdog-overlay h2 {
+        color: #ffcc00;
+        margin-bottom: 12px;
+        font-size: 18px;
+      }
+      
+      #watchdog-overlay p {
+        color: #aaa;
+        margin-bottom: 16px;
+        font-size: 13px;
+        max-width: 300px;
+      }
+      
+      #watchdog-overlay .status {
+        color: #88ff88;
+        font-size: 11px;
+        margin-bottom: 20px;
+      }
+      
+      #watchdog-overlay button {
+        padding: 12px 28px;
+        font-size: 15px;
+        background: #7c3aed;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        touch-action: manipulation;
+        margin: 5px;
       }
       
       /* WebGL context lost overlay */
@@ -143,6 +217,12 @@
         font-size: 14px;
       }
       
+      #webgl-lost-overlay .countdown {
+        color: #88ff88;
+        font-size: 12px;
+        margin-bottom: 16px;
+      }
+      
       #webgl-lost-overlay button {
         padding: 12px 32px;
         font-size: 16px;
@@ -163,9 +243,16 @@
           padding-right: env(safe-area-inset-right);
         }
       }
+      
+      /* Fallback for dvh support */
+      @supports (height: 100dvh) {
+        #game-container {
+          height: 100dvh;
+        }
+      }
     </style>
-    <script type="module" crossorigin src="./assets/index-DaoTQczZ.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Cf-mPpag.css">
+    <script type="module" crossorigin src="./assets/index-VRF5ycgz.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-PoJPB3Fs.css">
   </head>
   <body>
     <div id="game-container"></div>
@@ -176,44 +263,95 @@
       <div id="debug-content"></div>
     </div>
     
+    <!-- Watchdog overlay - game stuck detection -->
+    <div id="watchdog-overlay">
+      <h2>⏳ Loading Taking Too Long</h2>
+      <p>The game appears to be stuck. This might be due to graphics issues on your device.</p>
+      <div class="status" id="watchdog-status">Attempting recovery...</div>
+      <button onclick="window.location.reload()">Reload Game</button>
+      <button onclick="window.forceCanvasFallback && window.forceCanvasFallback()">Try Safe Mode</button>
+    </div>
+    
     <!-- WebGL context lost overlay -->
     <div id="webgl-lost-overlay">
       <h2>Graphics Error</h2>
       <p>The game's graphics context was lost.<br>This can happen due to low memory or background activity.</p>
-      <button onclick="window.location.reload()">Reload Game</button>
+      <div class="countdown" id="webgl-countdown">Auto-recovering in 3s...</div>
+      <button onclick="window.location.reload()">Reload Now</button>
     </div>
     
-    <!-- Global error handlers - MUST load before main.ts -->
+    <!-- Global error handlers & Mobile fixes - MUST load before main.ts -->
     <script>
       (function() {
         'use strict';
         
-        // Error storage
-        var errors = [];
-        var maxErrors = 10;
+        // ===== 1. VISUAL VIEWPORT HEIGHT FIX (iOS/Android address bar) =====
+        function updateViewportHeight() {
+          try {
+            var vh;
+            if (window.visualViewport) {
+              vh = window.visualViewport.height * 0.01;
+            } else {
+              vh = window.innerHeight * 0.01;
+            }
+            document.documentElement.style.setProperty('--vvh', vh + 'px');
+          } catch (e) {
+            // Fallback
+            document.documentElement.style.setProperty('--vvh', '1vh');
+          }
+        }
         
-        // Debug overlay management
+        // Initial update
+        updateViewportHeight();
+        
+        // Update on viewport changes
+        window.addEventListener('resize', updateViewportHeight);
+        window.addEventListener('orientationchange', function() {
+          setTimeout(updateViewportHeight, 100);
+        });
+        
+        if (window.visualViewport) {
+          window.visualViewport.addEventListener('resize', updateViewportHeight);
+          window.visualViewport.addEventListener('scroll', updateViewportHeight);
+        }
+        
+        // ===== 2. DEBUG OVERLAY MANAGEMENT =====
+        var errors = [];
+        var maxErrors = 8;
+        var gameInfo = {
+          renderer: 'unknown',
+          scene: 'unknown',
+          dpr: window.devicePixelRatio || 1,
+          isMobile: 'ontouchstart' in window || navigator.maxTouchPoints > 0
+        };
+        
         function showError(type, message, stack) {
           var debugOverlay = document.getElementById('debug-overlay');
           var debugContent = document.getElementById('debug-content');
           
           if (!debugOverlay || !debugContent) return;
           
-          // Add error to list
+          var timestamp = new Date().toLocaleTimeString();
+          
           errors.push({
             type: type,
             message: message,
             stack: stack,
-            time: new Date().toLocaleTimeString()
+            time: timestamp
           });
           
-          // Keep only recent errors
           if (errors.length > maxErrors) {
             errors.shift();
           }
           
-          // Render errors
-          var html = '';
+          // Build HTML
+          var html = '<div class="debug-info">';
+          html += 'Device: ' + (gameInfo.isMobile ? 'Mobile' : 'Desktop');
+          html += ' | DPR: ' + gameInfo.dpr.toFixed(1);
+          html += ' | Renderer: ' + gameInfo.renderer;
+          html += ' | Scene: ' + gameInfo.scene;
+          html += '</div>';
+          
           for (var i = errors.length - 1; i >= 0; i--) {
             var err = errors[i];
             html += '<div class="error-header">[' + err.time + '] ' + err.type + '</div>';
@@ -228,25 +366,29 @@
           debugOverlay.classList.add('visible');
         }
         
-        // Global error handler
+        // Update game info
+        window.updateGameDebugInfo = function(info) {
+          if (info.renderer) gameInfo.renderer = info.renderer;
+          if (info.scene) gameInfo.scene = info.scene;
+        };
+        
+        // ===== 3. GLOBAL ERROR HANDLERS =====
         window.onerror = function(message, source, lineno, colno, error) {
           var errorMessage = message || 'Unknown error';
           var stack = '';
           
           if (error && error.stack) {
-            stack = error.stack.substring(0, 500);
+            stack = error.stack.substring(0, 400);
           } else if (source) {
             stack = 'at ' + source + ':' + lineno + ':' + colno;
           }
           
           console.error('[Global Error]', errorMessage, stack);
-          showError('Error', errorMessage, stack);
+          showError('Error', String(errorMessage), stack);
           
-          // Don't prevent default - let error propagate for debugging
           return false;
         };
         
-        // Unhandled promise rejection handler
         window.addEventListener('unhandledrejection', function(event) {
           var reason = event.reason;
           var message = 'Promise rejected';
@@ -258,11 +400,11 @@
             } else if (reason.message) {
               message = reason.message;
               if (reason.stack) {
-                stack = reason.stack.substring(0, 500);
+                stack = reason.stack.substring(0, 400);
               }
             } else {
               try {
-                message = JSON.stringify(reason).substring(0, 200);
+                message = JSON.stringify(reason).substring(0, 150);
               } catch (e) {
                 message = 'Unknown promise rejection';
               }
@@ -272,21 +414,19 @@
           console.warn('[Unhandled Rejection]', message, stack);
           showError('Promise Rejection', message, stack);
           
-          // Prevent unhandled rejection from crashing the app
           event.preventDefault();
         });
         
-        // Console override to capture logs on mobile
+        // Console.error capture for mobile debugging
         var originalConsoleError = console.error;
         console.error = function() {
           originalConsoleError.apply(console, arguments);
           
-          // Only show on mobile where DevTools isn't available
-          if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+          if (gameInfo.isMobile) {
             var message = Array.prototype.slice.call(arguments).map(function(arg) {
               if (typeof arg === 'object') {
                 try {
-                  return JSON.stringify(arg).substring(0, 200);
+                  return JSON.stringify(arg).substring(0, 150);
                 } catch (e) {
                   return String(arg);
                 }
@@ -294,75 +434,176 @@
               return String(arg);
             }).join(' ');
             
-            showError('Console.error', message.substring(0, 500), '');
+            showError('Console.error', message.substring(0, 400), '');
           }
         };
         
-        // WebGL context handling - setup after DOM is ready
+        // ===== 4. WATCHDOG - DETECT STUCK GAME =====
+        var watchdogTimeout = null;
+        var watchdogTriggered = false;
+        var gameStarted = false;
+        var recoveryAttempts = 0;
+        var maxRecoveryAttempts = 3;
+        
+        function startWatchdog() {
+          if (watchdogTimeout) clearTimeout(watchdogTimeout);
+          
+          watchdogTimeout = setTimeout(function() {
+            if (!gameStarted && !watchdogTriggered) {
+              watchdogTriggered = true;
+              console.error('[Watchdog] Game appears stuck - triggering recovery');
+              showWatchdogOverlay();
+            }
+          }, 8000); // 8 seconds timeout
+        }
+        
+        function stopWatchdog() {
+          gameStarted = true;
+          if (watchdogTimeout) {
+            clearTimeout(watchdogTimeout);
+            watchdogTimeout = null;
+          }
+        }
+        
+        function showWatchdogOverlay() {
+          var overlay = document.getElementById('watchdog-overlay');
+          var status = document.getElementById('watchdog-status');
+          
+          if (overlay) {
+            overlay.classList.add('visible');
+          }
+          
+          if (status) {
+            status.textContent = 'Recovery attempt ' + (recoveryAttempts + 1) + ' of ' + maxRecoveryAttempts;
+          }
+          
+          // Auto-recovery after 3 seconds
+          setTimeout(function() {
+            if (recoveryAttempts < maxRecoveryAttempts) {
+              recoveryAttempts++;
+              if (status) {
+                status.textContent = 'Reloading...';
+              }
+              window.location.reload();
+            } else {
+              if (status) {
+                status.textContent = 'Max attempts reached. Please try Safe Mode.';
+              }
+            }
+          }, 3000);
+        }
+        
+        // Expose watchdog controls
+        window.signalGameStarted = stopWatchdog;
+        window.startWatchdog = startWatchdog;
+        
+        // Force canvas fallback (safe mode)
+        window.forceCanvasFallback = function() {
+          try {
+            localStorage.setItem('forceCanvasRenderer', 'true');
+          } catch(e) {}
+          window.location.reload();
+        };
+        
+        // Check if we should force canvas
+        window.shouldForceCanvas = function() {
+          try {
+            return localStorage.getItem('forceCanvasRenderer') === 'true';
+          } catch(e) {
+            return false;
+          }
+        };
+        
+        // Clear canvas force after successful load
+        window.clearCanvasForce = function() {
+          try {
+            localStorage.removeItem('forceCanvasRenderer');
+          } catch(e) {}
+        };
+        
+        // Start watchdog immediately
+        startWatchdog();
+        
+        // ===== 5. WEBGL CONTEXT HANDLING =====
+        var webglRecoveryAttempts = 0;
+        var maxWebglRecovery = 3;
+        
         function setupWebGLHandlers() {
           var gameContainer = document.getElementById('game-container');
           var webglLostOverlay = document.getElementById('webgl-lost-overlay');
+          var countdownEl = document.getElementById('webgl-countdown');
           
           if (!gameContainer || !webglLostOverlay) return;
           
-          // Find canvas (may be created later by Phaser)
           function findAndSetupCanvas() {
             var canvas = gameContainer.querySelector('canvas');
             
             if (!canvas) {
-              // Canvas not yet created, try again shortly
-              setTimeout(findAndSetupCanvas, 500);
+              setTimeout(findAndSetupCanvas, 300);
               return;
             }
             
-            // WebGL context lost handler
             canvas.addEventListener('webglcontextlost', function(event) {
               console.error('[WebGL] Context lost');
-              event.preventDefault(); // Allows potential recovery
+              event.preventDefault();
               
               webglLostOverlay.classList.add('visible');
-              showError('WebGL', 'Graphics context lost - memory or GPU issue', '');
+              showError('WebGL', 'Graphics context lost', '');
+              
+              // Auto-recovery countdown
+              var countdown = 3;
+              var countdownInterval = setInterval(function() {
+                countdown--;
+                if (countdownEl) {
+                  countdownEl.textContent = 'Auto-recovering in ' + countdown + 's...';
+                }
+                if (countdown <= 0) {
+                  clearInterval(countdownInterval);
+                  webglRecoveryAttempts++;
+                  
+                  if (webglRecoveryAttempts >= maxWebglRecovery) {
+                    // Force canvas fallback
+                    window.forceCanvasFallback();
+                  } else {
+                    window.location.reload();
+                  }
+                }
+              }, 1000);
             }, false);
             
-            // WebGL context restored handler
             canvas.addEventListener('webglcontextrestored', function(event) {
               console.log('[WebGL] Context restored');
               webglLostOverlay.classList.remove('visible');
               
-              // Try to reload the current scene
               try {
                 if (window.game && window.game.scene) {
                   var activeScenes = window.game.scene.getScenes(true);
                   if (activeScenes && activeScenes.length > 0) {
-                    var currentScene = activeScenes[0];
-                    currentScene.scene.restart();
+                    activeScenes[0].scene.restart();
                   }
                 }
               } catch (e) {
                 console.warn('[WebGL] Scene restart failed:', e);
-                // Fallback: reload page
                 window.location.reload();
               }
             }, false);
             
-            console.log('[WebGL] Context handlers attached to canvas');
+            console.log('[WebGL] Context handlers attached');
           }
           
-          // Start looking for canvas
           findAndSetupCanvas();
         }
         
-        // Setup when DOM is ready
         if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', setupWebGLHandlers);
         } else {
           setupWebGLHandlers();
         }
         
-        // Expose error display function globally for debugging
+        // Expose error display function
         window.showGameError = showError;
         
-        console.log('[Debug] Error handlers initialized');
+        console.log('[Debug] Mobile fixes and error handlers initialized');
       })();
     </script>
     
