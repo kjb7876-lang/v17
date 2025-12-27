@@ -18,6 +18,15 @@
       }
     ]
   },
+  "backgrounds": {
+    "files": [
+      {
+        "type": "image",
+        "key": "dungeon_bg_tileset",
+        "url": "https://cdn-game-mcp.gambo.ai/52ffe014-40c3-41c1-a98b-286e292c0b53/uploads/52ffe014-40c3-41c1-a98b-286e292c0b53.png"
+      }
+    ]
+  },
   "images": {
     "files": [
       {
@@ -64,6 +73,16 @@
         "type": "image",
         "key": "shadow_bolt_projectile",
         "url": "https://cdn-game-mcp.gambo.ai/7ff705b3-f7d6-4418-930d-ec487ea469b5/images/shadow_bolt_projectile.png"
+      },
+      {
+        "type": "image",
+        "key": "boss_dark_orb_projectile",
+        "url": "https://cdn-game-mcp.gambo.ai/fdc27c01-2633-47cc-9173-af50dcd789c0/images/boss_dark_orb_projectile.png"
+      },
+      {
+        "type": "image",
+        "key": "boss_fire_skull_projectile",
+        "url": "https://cdn-game-mcp.gambo.ai/88a0b5c1-ee90-4735-9a8f-16f4e2688497/images/boss_fire_skull_projectile.png"
       },
       {
         "type": "image",

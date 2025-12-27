@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="./favicon.ico" />
-    <!-- CRITICAL: Mobile viewport settings for iOS/Android -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <!-- CRITICAL: Mobile viewport settings for iOS/Android - FIXED FOR MOBILE DISPLAY BUG -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no, maximum-scale=1" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -45,13 +45,12 @@
         -webkit-overflow-scrolling: touch;
       }
       
-      /* Game container - uses visualViewport height for true fullscreen on mobile */
+      /* Game container - FULLSCREEN with NO black bars
+       * Uses visualViewport height for true fullscreen on mobile
+       * ENVELOP mode ensures canvas covers entire container */
       #game-container {
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        inset: 0;
         width: 100vw;
         height: calc(var(--vvh, 1vh) * 100);
         display: flex;
@@ -63,11 +62,37 @@
         overscroll-behavior: none;
       }
       
+      /* Canvas should fill container completely with ENVELOP mode
+       * Remove max-width/max-height constraints to allow full coverage */
       #game-container canvas {
         display: block;
-        max-width: 100%;
-        max-height: 100%;
+        width: 100%;
+        height: 100%;
+        -o-object-fit: cover;
+           object-fit: cover;
         touch-action: none;
+      }
+      
+      /* UI Overlay Root - syncs perfectly with canvas position via JS */
+      #ui-overlay-root {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1000;
+        overflow: hidden;
+        touch-action: none;
+        -webkit-tap-highlight-color: transparent;
+        -moz-user-select: none;
+             user-select: none;
+        -webkit-user-select: none;
+      }
+      
+      /* UI overlay children can have pointer events */
+      #ui-overlay-root .ui-interactive {
+        pointer-events: auto;
       }
       
       /* Debug overlay for mobile error display - ALWAYS visible when errors occur */
@@ -76,7 +101,7 @@
         top: 0;
         left: 0;
         right: 0;
-        max-height: 35%;
+        max-height: 40%;
         overflow-y: auto;
         background: rgba(0, 0, 0, 0.95);
         color: #ff6b6b;
@@ -115,6 +140,9 @@
         color: #88ff88;
         font-size: 9px;
         margin-bottom: 4px;
+        padding: 4px;
+        background: rgba(0,100,0,0.2);
+        border-radius: 3px;
       }
       
       #debug-overlay .close-btn {
@@ -251,11 +279,14 @@
         }
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-VRF5ycgz.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-PoJPB3Fs.css">
+    <script type="module" crossorigin src="./assets/index-BonRCaRD.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-L4AIM6cL.css">
   </head>
   <body>
-    <div id="game-container"></div>
+    <div id="game-container">
+      <!-- UI Overlay Root - positioned exactly on top of canvas -->
+      <div id="ui-overlay-root"></div>
+    </div>
     
     <!-- Debug overlay for mobile error display -->
     <div id="debug-overlay">
@@ -286,43 +317,198 @@
         'use strict';
         
         // ===== 1. VISUAL VIEWPORT HEIGHT FIX (iOS/Android address bar) =====
+        // CRITICAL: Prevents "different screen" bug on mobile by using visualViewport.height
+        // Also triggers Phaser scale refresh for proper ENVELOP mode coverage
+        var lastVvh = 0;
+        var vvhUpdatePending = false;
+        
         function updateViewportHeight() {
-          try {
-            var vh;
-            if (window.visualViewport) {
-              vh = window.visualViewport.height * 0.01;
-            } else {
-              vh = window.innerHeight * 0.01;
+          if (vvhUpdatePending) return;
+          vvhUpdatePending = true;
+          
+          requestAnimationFrame(function() {
+            vvhUpdatePending = false;
+            try {
+              var vh;
+              if (window.visualViewport && window.visualViewport.height > 0) {
+                vh = window.visualViewport.height * 0.01;
+              } else if (window.innerHeight > 0) {
+                vh = window.innerHeight * 0.01;
+              } else {
+                vh = document.documentElement.clientHeight * 0.01 || 7.68; // fallback
+              }
+              
+              // Guard against non-finite values
+              if (!Number.isFinite(vh) || vh <= 0) {
+                vh = window.innerHeight > 0 ? window.innerHeight * 0.01 : 7.68;
+              }
+              
+              // Only update if value changed significantly (> 0.5px difference)
+              if (Math.abs(vh - lastVvh) > 0.005) {
+                lastVvh = vh;
+                document.documentElement.style.setProperty('--vvh', vh + 'px');
+                
+                // CRITICAL: Trigger Phaser scale refresh for ENVELOP mode
+                // This ensures canvas resizes properly to cover full viewport
+                if (window.game && window.game.scale) {
+                  try {
+                    window.game.scale.refresh();
+                  } catch (e) {
+                    console.warn('[VVH] Scale refresh error:', e);
+                  }
+                }
+              }
+            } catch (e) {
+              console.warn('[VVH] Update error:', e);
+              document.documentElement.style.setProperty('--vvh', '1vh');
             }
-            document.documentElement.style.setProperty('--vvh', vh + 'px');
-          } catch (e) {
-            // Fallback
-            document.documentElement.style.setProperty('--vvh', '1vh');
-          }
+          });
         }
         
         // Initial update
         updateViewportHeight();
         
         // Update on viewport changes
-        window.addEventListener('resize', updateViewportHeight);
+        window.addEventListener('resize', function() {
+          updateViewportHeight();
+          // Also refresh Phaser scale on resize
+          if (window.game && window.game.scale) {
+            try { window.game.scale.refresh(); } catch(e) {}
+          }
+        }, { passive: true });
+        
         window.addEventListener('orientationchange', function() {
-          setTimeout(updateViewportHeight, 100);
+          // Multiple delayed updates for orientation change (browser needs time to settle)
+          setTimeout(updateViewportHeight, 50);
+          setTimeout(updateViewportHeight, 150);
+          setTimeout(updateViewportHeight, 300);
+          setTimeout(function() {
+            updateViewportHeight();
+            syncUIOverlay();
+            // Force Phaser scale refresh after orientation settles
+            if (window.game && window.game.scale) {
+              try { window.game.scale.refresh(); } catch(e) {}
+            }
+          }, 500);
         });
         
         if (window.visualViewport) {
-          window.visualViewport.addEventListener('resize', updateViewportHeight);
-          window.visualViewport.addEventListener('scroll', updateViewportHeight);
+          window.visualViewport.addEventListener('resize', function() {
+            updateViewportHeight();
+            // Trigger Phaser refresh on visualViewport resize (iOS address bar)
+            if (window.game && window.game.scale) {
+              try { window.game.scale.refresh(); } catch(e) {}
+            }
+          }, { passive: true });
+          window.visualViewport.addEventListener('scroll', updateViewportHeight, { passive: true });
         }
         
-        // ===== 2. DEBUG OVERLAY MANAGEMENT =====
+        // ===== 2. UI OVERLAY SYNC - Canvas rect based positioning =====
+        // CRITICAL: Prevents "different screen" look by syncing overlay to canvas exactly
+        var lastSyncRect = { left: 0, top: 0, width: 0, height: 0 };
+        var syncPending = false;
+        var syncRetryCount = 0;
+        var maxSyncRetries = 5;
+        
+        function syncUIOverlay() {
+          if (syncPending) return;
+          syncPending = true;
+          
+          requestAnimationFrame(function() {
+            syncPending = false;
+            
+            try {
+              var container = document.getElementById('game-container');
+              var overlay = document.getElementById('ui-overlay-root');
+              var canvas = container ? container.querySelector('canvas') : null;
+              
+              if (!overlay || !container) return;
+              
+              if (canvas) {
+                var rect = canvas.getBoundingClientRect();
+                var containerRect = container.getBoundingClientRect();
+                
+                // GUARD: Skip if rect values are 0 or non-finite
+                var w = rect.width;
+                var h = rect.height;
+                var l = rect.left - containerRect.left;
+                var t = rect.top - containerRect.top;
+                
+                if (!Number.isFinite(w) || !Number.isFinite(h) || w <= 0 || h <= 0) {
+                  // Non-finite or zero dimensions - retry on next frame
+                  syncRetryCount++;
+                  if (syncRetryCount < maxSyncRetries) {
+                    setTimeout(syncUIOverlay, 100);
+                  }
+                  return;
+                }
+                
+                syncRetryCount = 0; // Reset retry count on success
+                
+                // Skip update if rect hasn't changed significantly
+                if (Math.abs(l - lastSyncRect.left) < 1 &&
+                    Math.abs(t - lastSyncRect.top) < 1 &&
+                    Math.abs(w - lastSyncRect.width) < 1 &&
+                    Math.abs(h - lastSyncRect.height) < 1) {
+                  return;
+                }
+                
+                lastSyncRect = { left: l, top: t, width: w, height: h };
+                
+                // Sync overlay to canvas position and size
+                overlay.style.position = 'absolute';
+                overlay.style.left = l + 'px';
+                overlay.style.top = t + 'px';
+                overlay.style.width = w + 'px';
+                overlay.style.height = h + 'px';
+              } else {
+                // No canvas yet - fill container
+                overlay.style.position = 'absolute';
+                overlay.style.left = '0';
+                overlay.style.top = '0';
+                overlay.style.width = '100%';
+                overlay.style.height = '100%';
+              }
+            } catch (e) {
+              console.warn('[UIOverlay] Sync error:', e);
+            }
+          });
+        }
+        
+        // Expose for external use
+        window.syncUIOverlay = syncUIOverlay;
+        
+        // Sync overlay on resize/orientation
+        window.addEventListener('resize', syncUIOverlay, { passive: true });
+        window.addEventListener('orientationchange', function() {
+          setTimeout(syncUIOverlay, 100);
+          setTimeout(syncUIOverlay, 300);
+          setTimeout(syncUIOverlay, 500);
+        });
+        
+        // Continuous sync via requestAnimationFrame (throttled to ~10fps for performance)
+        var lastRafSyncTime = 0;
+        function rafSync(now) {
+          if (now - lastRafSyncTime > 100) { // Sync every 100ms max
+            lastRafSyncTime = now;
+            syncUIOverlay();
+          }
+          requestAnimationFrame(rafSync);
+        }
+        requestAnimationFrame(rafSync);
+        
+        // ===== 3. DEBUG OVERLAY MANAGEMENT =====
         var errors = [];
-        var maxErrors = 8;
+        var maxErrors = 10;
         var gameInfo = {
           renderer: 'unknown',
           scene: 'unknown',
+          step: 'init',
           dpr: window.devicePixelRatio || 1,
-          isMobile: 'ontouchstart' in window || navigator.maxTouchPoints > 0
+          isMobile: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
+          viewportWidth: 0,
+          viewportHeight: 0,
+          canvasRect: 'N/A'
         };
         
         function showError(type, message, stack) {
@@ -344,12 +530,25 @@
             errors.shift();
           }
           
-          // Build HTML
+          // Update viewport info
+          gameInfo.viewportWidth = window.innerWidth;
+          gameInfo.viewportHeight = window.innerHeight;
+          
+          var canvas = document.querySelector('#game-container canvas');
+          if (canvas) {
+            var rect = canvas.getBoundingClientRect();
+            gameInfo.canvasRect = Math.round(rect.width) + 'x' + Math.round(rect.height);
+          }
+          
+          // Build HTML with enhanced info
           var html = '<div class="debug-info">';
           html += 'Device: ' + (gameInfo.isMobile ? 'Mobile' : 'Desktop');
           html += ' | DPR: ' + gameInfo.dpr.toFixed(1);
           html += ' | Renderer: ' + gameInfo.renderer;
-          html += ' | Scene: ' + gameInfo.scene;
+          html += '<br>Scene: ' + gameInfo.scene;
+          html += ' | Step: ' + gameInfo.step;
+          html += '<br>Viewport: ' + gameInfo.viewportWidth + 'x' + gameInfo.viewportHeight;
+          html += ' | Canvas: ' + gameInfo.canvasRect;
           html += '</div>';
           
           for (var i = errors.length - 1; i >= 0; i--) {
@@ -370,15 +569,16 @@
         window.updateGameDebugInfo = function(info) {
           if (info.renderer) gameInfo.renderer = info.renderer;
           if (info.scene) gameInfo.scene = info.scene;
+          if (info.step) gameInfo.step = info.step;
         };
         
-        // ===== 3. GLOBAL ERROR HANDLERS =====
+        // ===== 4. GLOBAL ERROR HANDLERS =====
         window.onerror = function(message, source, lineno, colno, error) {
           var errorMessage = message || 'Unknown error';
           var stack = '';
           
           if (error && error.stack) {
-            stack = error.stack.substring(0, 400);
+            stack = error.stack.substring(0, 500);
           } else if (source) {
             stack = 'at ' + source + ':' + lineno + ':' + colno;
           }
@@ -386,7 +586,8 @@
           console.error('[Global Error]', errorMessage, stack);
           showError('Error', String(errorMessage), stack);
           
-          return false;
+          // Prevent crash - return true to mark as handled
+          return true;
         };
         
         window.addEventListener('unhandledrejection', function(event) {
@@ -400,11 +601,11 @@
             } else if (reason.message) {
               message = reason.message;
               if (reason.stack) {
-                stack = reason.stack.substring(0, 400);
+                stack = reason.stack.substring(0, 500);
               }
             } else {
               try {
-                message = JSON.stringify(reason).substring(0, 150);
+                message = JSON.stringify(reason).substring(0, 200);
               } catch (e) {
                 message = 'Unknown promise rejection';
               }
@@ -426,7 +627,7 @@
             var message = Array.prototype.slice.call(arguments).map(function(arg) {
               if (typeof arg === 'object') {
                 try {
-                  return JSON.stringify(arg).substring(0, 150);
+                  return JSON.stringify(arg).substring(0, 200);
                 } catch (e) {
                   return String(arg);
                 }
@@ -434,27 +635,31 @@
               return String(arg);
             }).join(' ');
             
-            showError('Console.error', message.substring(0, 400), '');
+            showError('Console.error', message.substring(0, 500), '');
           }
         };
         
-        // ===== 4. WATCHDOG - DETECT STUCK GAME =====
+        // ===== 5. WATCHDOG - DETECT STUCK GAME WITH AUTO-RECOVERY =====
         var watchdogTimeout = null;
         var watchdogTriggered = false;
         var gameStarted = false;
-        var recoveryAttempts = 0;
+        var recoveryAttempt = parseInt(sessionStorage.getItem('recoveryAttempt') || '0', 10);
         var maxRecoveryAttempts = 3;
+        
+        // Expose recovery attempt to game
+        window.recoveryAttempt = recoveryAttempt;
         
         function startWatchdog() {
           if (watchdogTimeout) clearTimeout(watchdogTimeout);
           
+          // 5 second timeout for first update (reduced from 8 for faster feedback)
           watchdogTimeout = setTimeout(function() {
             if (!gameStarted && !watchdogTriggered) {
               watchdogTriggered = true;
               console.error('[Watchdog] Game appears stuck - triggering recovery');
               showWatchdogOverlay();
             }
-          }, 8000); // 8 seconds timeout
+          }, 5000);
         }
         
         function stopWatchdog() {
@@ -463,6 +668,9 @@
             clearTimeout(watchdogTimeout);
             watchdogTimeout = null;
           }
+          // Clear recovery attempts on successful start
+          sessionStorage.removeItem('recoveryAttempt');
+          window.recoveryAttempt = 0;
         }
         
         function showWatchdogOverlay() {
@@ -473,21 +681,27 @@
             overlay.classList.add('visible');
           }
           
+          recoveryAttempt++;
+          sessionStorage.setItem('recoveryAttempt', String(recoveryAttempt));
+          window.recoveryAttempt = recoveryAttempt;
+          
           if (status) {
-            status.textContent = 'Recovery attempt ' + (recoveryAttempts + 1) + ' of ' + maxRecoveryAttempts;
+            status.textContent = 'Recovery attempt ' + recoveryAttempt + ' of ' + maxRecoveryAttempts;
           }
           
           // Auto-recovery after 3 seconds
           setTimeout(function() {
-            if (recoveryAttempts < maxRecoveryAttempts) {
-              recoveryAttempts++;
+            if (recoveryAttempt < maxRecoveryAttempts) {
               if (status) {
-                status.textContent = 'Reloading...';
+                status.textContent = 'Reloading with safe settings...';
               }
+              // Force canvas and lower resolution on next load
+              sessionStorage.setItem('forceCanvasRenderer', 'true');
+              sessionStorage.setItem('forceResolution', '1');
               window.location.reload();
             } else {
               if (status) {
-                status.textContent = 'Max attempts reached. Please try Safe Mode.';
+                status.textContent = 'Max attempts reached. Please try Safe Mode manually.';
               }
             }
           }, 3000);
@@ -500,7 +714,9 @@
         // Force canvas fallback (safe mode)
         window.forceCanvasFallback = function() {
           try {
-            localStorage.setItem('forceCanvasRenderer', 'true');
+            sessionStorage.setItem('forceCanvasRenderer', 'true');
+            sessionStorage.setItem('forceResolution', '1');
+            sessionStorage.setItem('recoveryAttempt', '1');
           } catch(e) {}
           window.location.reload();
         };
@@ -508,7 +724,7 @@
         // Check if we should force canvas
         window.shouldForceCanvas = function() {
           try {
-            return localStorage.getItem('forceCanvasRenderer') === 'true';
+            return sessionStorage.getItem('forceCanvasRenderer') === 'true';
           } catch(e) {
             return false;
           }
@@ -517,14 +733,31 @@
         // Clear canvas force after successful load
         window.clearCanvasForce = function() {
           try {
-            localStorage.removeItem('forceCanvasRenderer');
+            sessionStorage.removeItem('forceCanvasRenderer');
+            sessionStorage.removeItem('recoveryAttempt');
+          } catch(e) {}
+        };
+        
+        // Force resolution (for recovery)
+        window.getForceResolution = function() {
+          try {
+            var res = sessionStorage.getItem('forceResolution');
+            return res ? parseFloat(res) : null;
+          } catch(e) {
+            return null;
+          }
+        };
+        
+        window.setForceResolution = function(res) {
+          try {
+            sessionStorage.setItem('forceResolution', String(res));
           } catch(e) {}
         };
         
         // Start watchdog immediately
         startWatchdog();
         
-        // ===== 5. WEBGL CONTEXT HANDLING =====
+        // ===== 6. WEBGL CONTEXT HANDLING =====
         var webglRecoveryAttempts = 0;
         var maxWebglRecovery = 3;
         
@@ -562,7 +795,7 @@
                   webglRecoveryAttempts++;
                   
                   if (webglRecoveryAttempts >= maxWebglRecovery) {
-                    // Force canvas fallback
+                    // Force canvas fallback after multiple WebGL failures
                     window.forceCanvasFallback();
                   } else {
                     window.location.reload();
@@ -603,7 +836,7 @@
         // Expose error display function
         window.showGameError = showError;
         
-        console.log('[Debug] Mobile fixes and error handlers initialized');
+        console.log('[Debug] Mobile fixes and error handlers initialized. Recovery attempt:', recoveryAttempt);
       })();
     </script>
     
