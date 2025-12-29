@@ -24,6 +24,31 @@
         "type": "image",
         "key": "dungeon_bg_tileset",
         "url": "https://cdn-game-mcp.gambo.ai/52ffe014-40c3-41c1-a98b-286e292c0b53/uploads/52ffe014-40c3-41c1-a98b-286e292c0b53.png"
+      },
+      {
+        "type": "image",
+        "key": "bg01",
+        "url": "https://cdn-game-mcp.gambo.ai/c41eb284-4452-47da-ad67-68b56aadfc6b/uploads/c41eb284-4452-47da-ad67-68b56aadfc6b.png"
+      },
+      {
+        "type": "image",
+        "key": "bg02",
+        "url": "https://cdn-game-mcp.gambo.ai/c41eb284-4452-47da-ad67-68b56aadfc6b/uploads/c41eb284-4452-47da-ad67-68b56aadfc6b.png"
+      },
+      {
+        "type": "image",
+        "key": "ep1_swamp_hell_background",
+        "url": "https://cdn-game-mcp.gambo.ai/dd60acfe-d007-4482-a065-a705dd482745/uploads/dd60acfe-d007-4482-a065-a705dd482745.png"
+      },
+      {
+        "type": "image",
+        "key": "ep1_r9_swamp_boss",
+        "url": "https://cdn-gambo-public.gambo.ai/assets/Wd5ORPf80WHNkiDemmK_C.png"
+      },
+      {
+        "type": "image",
+        "key": "ep2_corpse_jungle_bg",
+        "url": "https://cdn-gambo-public.gambo.ai/assets/Wd5ORPf80WHNkiDemmK_C.png"
       }
     ]
   },
@@ -679,6 +704,16 @@
     "files": [
       {
         "type": "image",
+        "key": "spider_swamp_wall_tile",
+        "url": "https://cdn-game-mcp.gambo.ai/bc2c3433-7560-4e35-84b3-12546c18ae61/uploads/bc2c3433-7560-4e35-84b3-12546c18ae61.png"
+      },
+      {
+        "type": "image",
+        "key": "spider_web_overlay",
+        "url": "https://cdn-game-mcp.gambo.ai/3bb61ef3-e5a4-4e72-96f4-862789b67a2a/uploads/3bb61ef3-e5a4-4e72-96f4-862789b67a2a.png"
+      },
+      {
+        "type": "image",
         "key": "dungeon_stone_floor",
         "url": "https://cdn-game-mcp.gambo.ai/49f07f78-f5b6-40bb-9be3-ebcd6ede1774/tilesets/dungeon_stone_floor.png"
       },
@@ -690,7 +725,7 @@
       {
         "type": "image",
         "key": "town_cobblestone",
-        "url": "https://cdn-game-mcp.gambo.ai/7998535f-afc2-45f4-a4c9-9b3d39a1e583/tilesets/town_cobblestone.png"
+        "url": "https://cdn-gambo-public.gambo.ai/assets/SI0RjchxD2Y0hhGpEvDUV.png"
       },
       {
         "type": "image",
