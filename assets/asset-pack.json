@@ -845,6 +845,16 @@
         "type": "audio",
         "key": "bow_shoot",
         "url": "https://cdn-game-mcp.gambo.ai/35edf562-4041-4d8c-98d7-051505dc058a/sound_effects/bow_shoot.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "blood_dash_blade",
+        "url": "https://cdn-game-mcp.gambo.ai/93a0964f-e50b-4291-8b81-11b21789f4d1/sound_effects/blood_dash_blade.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "ice_ball_cast",
+        "url": "https://cdn-game-mcp.gambo.ai/ba9b163d-62b2-42bf-a08a-a970fdff33c0/sound_effects/ice_ball_cast.mp3"
       }
     ]
   },
