@@ -874,6 +874,21 @@
         "type": "audio",
         "key": "town_peaceful",
         "url": "https://cdn-game-mcp.gambo.ai/1c58a89f-6be6-44c9-ab36-1cb1b32886a6/music/town_peaceful.mp3"
+      },
+      {
+        "type": "image",
+        "key": "bloody_corpse_front_view",
+        "url": "https://cdn-gambo-public.gambo.ai/assets/FHJHbsKNxM43kpez_7o4v.png"
+      },
+      {
+        "type": "image",
+        "key": "bloody_corpse_side_view",
+        "url": "https://cdn-gambo-public.gambo.ai/assets/FHJHbsKNxM43kpez_7o4v.png"
+      },
+      {
+        "type": "image",
+        "key": "bloody_corpse_back_view",
+        "url": "https://cdn-gambo-public.gambo.ai/assets/FHJHbsKNxM43kpez_7o4v.png"
       }
     ]
   },
