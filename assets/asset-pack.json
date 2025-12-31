@@ -54,6 +54,26 @@
         "type": "image",
         "key": "bg14",
         "url": "https://cdn-game-mcp.gambo.ai/d3e118ee-7385-4010-b554-fc2b21c5e228/uploads/d3e118ee-7385-4010-b554-fc2b21c5e228.png"
+      },
+      {
+        "type": "image",
+        "key": "bg09",
+        "url": "https://cdn-game-mcp.gambo.ai/04a07f34-55cf-4efc-9949-dcd45e64740d/uploads/04a07f34-55cf-4efc-9949-dcd45e64740d.png"
+      },
+      {
+        "type": "image",
+        "key": "ep8_nightmare_park_background",
+        "url": "https://cdn-game-mcp.gambo.ai/18c582d1-80f7-4541-bbef-2ec2a7514d37/uploads/18c582d1-80f7-4541-bbef-2ec2a7514d37.png"
+      },
+      {
+        "type": "image",
+        "key": "ep9_hospital_background",
+        "url": "https://cdn-game-mcp.gambo.ai/f0a5f64e-2eb3-4d23-87c4-5bf580eddd30/uploads/f0a5f64e-2eb3-4d23-87c4-5bf580eddd30.png"
+      },
+      {
+        "type": "image",
+        "key": "ep11_r9_final_boss_background",
+        "url": "https://cdn-game-mcp.gambo.ai/6d602a6c-c208-4bf4-ba5f-b98f9eea5520/uploads/6d602a6c-c208-4bf4-ba5f-b98f9eea5520.png"
       }
     ]
   },
