@@ -146,6 +146,11 @@
       },
       {
         "type": "image",
+        "key": "blood_sword_slash_effect",
+        "url": "https://cdn-gambo-public.gambo.ai/assets/r8hVz7413fCC46L_Hn6KT.png"
+      },
+      {
+        "type": "image",
         "key": "arrow_projectile",
         "url": "https://cdn-game-mcp.gambo.ai/d23cd559-37ff-43f3-9ed7-126bb3f6fe4b/images/arrow_projectile.png"
       },
@@ -880,6 +885,31 @@
         "type": "audio",
         "key": "ice_ball_cast",
         "url": "https://cdn-game-mcp.gambo.ai/ba9b163d-62b2-42bf-a08a-a970fdff33c0/sound_effects/ice_ball_cast.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "boss_warp",
+        "url": "https://cdn-game-mcp.gambo.ai/407749da-6482-47a9-a852-58be9f0189e5/sound_effects/boss_warp.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "boss_knockback",
+        "url": "https://cdn-game-mcp.gambo.ai/4a2abd55-e8e7-4944-a3e9-c0606970e16f/sound_effects/boss_knockback.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "skill_seal",
+        "url": "https://cdn-game-mcp.gambo.ai/ec8474b0-3351-42a7-85a6-cb47cea78719/sound_effects/skill_seal.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "boss_stun",
+        "url": "https://cdn-game-mcp.gambo.ai/7d80b96c-5a71-413b-a358-e3ff1bb6e454/sound_effects/boss_stun.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "boss_curse",
+        "url": "https://cdn-game-mcp.gambo.ai/9d322a43-0422-45a4-843b-2a6b8666fc97/sound_effects/boss_curse.mp3"
       }
     ]
   },
