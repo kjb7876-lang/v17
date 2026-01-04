@@ -74,6 +74,16 @@
         "type": "image",
         "key": "ep11_r9_final_boss_background",
         "url": "https://cdn-game-mcp.gambo.ai/6d602a6c-c208-4bf4-ba5f-b98f9eea5520/uploads/6d602a6c-c208-4bf4-ba5f-b98f9eea5520.png"
+      },
+      {
+        "type": "image",
+        "key": "gluttony_map_background",
+        "url": "https://cdn-game-mcp.gambo.ai/a944ec0c-4539-486b-a636-f6ed69cea804/uploads/a944ec0c-4539-486b-a636-f6ed69cea804.png"
+      },
+      {
+        "type": "image",
+        "key": "lust_map_background",
+        "url": "https://cdn-gambo-public.gambo.ai/assets/06Rd1-wPb9mTCRFpCApau.png"
       }
     ]
   },
@@ -216,18 +226,18 @@
       },
       {
         "type": "image",
-        "key": "butcher_boss_side_view",
-        "url": "https://cdn-game-mcp.gambo.ai/d7a4a018-d81f-4be5-a835-8a1ceb5e7738/images/butcher_boss_side_view.png"
+        "key": "chef_boss_side_view",
+        "url": "https://cdn-game-mcp.gambo.ai/198f917b-861c-4114-a420-bf49a46aff44/images/chef_boss_side_view.png"
       },
       {
         "type": "image",
-        "key": "butcher_boss_front_view",
-        "url": "https://cdn-game-mcp.gambo.ai/aff87724-412d-43fb-a658-30fff00abd52/images/butcher_boss_front_view.png"
+        "key": "chef_boss_front_view",
+        "url": "https://cdn-game-mcp.gambo.ai/8a480828-599d-4307-b737-4bcdcee85ca3/images/chef_boss_front_view.png"
       },
       {
         "type": "image",
-        "key": "butcher_boss_back_view",
-        "url": "https://cdn-game-mcp.gambo.ai/bc29bdc0-1bc7-4d97-97f7-c59a224f2b24/images/butcher_boss_back_view.png"
+        "key": "chef_boss_back_view",
+        "url": "https://cdn-game-mcp.gambo.ai/7d79b820-8e8f-44b3-a1b0-f93dc9234cb2/images/chef_boss_back_view.png"
       },
       {
         "type": "image",
