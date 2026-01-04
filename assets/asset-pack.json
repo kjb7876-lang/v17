@@ -1007,6 +1007,55 @@
       }
     ]
   },
+  "seductress_boss_assets": {
+    "files": [
+      {
+        "type": "image",
+        "key": "seductress_boss_side_view",
+        "url": "https://cdn-game-mcp.gambo.ai/86438942-5bfe-428d-be9f-d28a98a81487/images/Seductress Boss_side_view.png"
+      },
+      {
+        "type": "image",
+        "key": "seductress_boss_front_view",
+        "url": "https://cdn-game-mcp.gambo.ai/89d40f83-932b-444f-bd6b-a80f64a1f942/images/Seductress Boss_front_view.png"
+      },
+      {
+        "type": "image",
+        "key": "seductress_boss_back_view",
+        "url": "https://cdn-game-mcp.gambo.ai/e7a88310-6b84-44ce-a51a-574b0a209e7c/images/Seductress Boss_back_view.png"
+      },
+      {
+        "type": "image",
+        "key": "seductress_boss_idle_R_frame1",
+        "url": "https://cdn-game-mcp.gambo.ai/2b615432-cf01-45bb-9c90-9a300504474a/animations/seductress_boss_idle_R/frame_1.png"
+      },
+      {
+        "type": "image",
+        "key": "seductress_boss_idle_R_frame2",
+        "url": "https://cdn-game-mcp.gambo.ai/66216249-dff6-45b4-be40-a7cdc7e43921/animations/seductress_boss_idle_R/frame_2.png"
+      },
+      {
+        "type": "image",
+        "key": "seductress_boss_idle_front_frame1",
+        "url": "https://cdn-game-mcp.gambo.ai/7d9ed896-2517-41eb-9d04-c62cc6d646a4/animations/seductress_boss_idle_front/frame_1.png"
+      },
+      {
+        "type": "image",
+        "key": "seductress_boss_idle_front_frame2",
+        "url": "https://cdn-game-mcp.gambo.ai/79ce5be6-931c-4547-bae0-25cc6cb4e5b0/animations/seductress_boss_idle_front/frame_2.png"
+      },
+      {
+        "type": "image",
+        "key": "seductress_boss_idle_back_frame1",
+        "url": "https://cdn-game-mcp.gambo.ai/5d46bcd4-0203-4374-8f92-f8c4eedbee05/animations/seductress_boss_idle_back/frame_1.png"
+      },
+      {
+        "type": "image",
+        "key": "seductress_boss_idle_back_frame2",
+        "url": "https://cdn-game-mcp.gambo.ai/6d569900-b701-494f-a294-3bfe86ec62e4/animations/seductress_boss_idle_back/frame_2.png"
+      }
+    ]
+  },
   "meta": {
     "app": "Gambo AI",
     "version": 1,
