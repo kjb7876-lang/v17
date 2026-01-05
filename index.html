@@ -69,13 +69,12 @@
       }
       
       /* Canvas should fill container completely with ENVELOP mode
-       * Remove max-width/max-height constraints to allow full coverage */
+       * Remove max-width/max-height constraints to allow full coverage
+       * FIXED: Removed object-fit: cover to prevent black screen on mobile */
       #game-container canvas {
         display: block;
         width: 100%;
         height: 100%;
-        -o-object-fit: cover;
-           object-fit: cover;
         touch-action: none;
       }
       
@@ -342,8 +341,8 @@
         border: 1px solid rgba(124, 58, 237, 0.3);
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-aY5w-yyG.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-C1fExbv9.css">
+    <script type="module" crossorigin src="./assets/index-DhviCjrA.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BPpBVr4y.css">
   </head>
   <body>
     <div id="game-container">
@@ -788,14 +787,15 @@
         function startWatchdog() {
           if (watchdogTimeout) clearTimeout(watchdogTimeout);
           
-          // 5 second timeout for first update (reduced from 8 for faster feedback)
+          // 15 second timeout for first update (increased from 5 for slower devices/networks)
+          // The game signals multiple times during loading, so if we don't hear back in 15s, it's truly stuck
           watchdogTimeout = setTimeout(function() {
             if (!gameStarted && !watchdogTriggered) {
               watchdogTriggered = true;
               console.error('[Watchdog] Game appears stuck - triggering recovery');
               showWatchdogOverlay();
             }
-          }, 5000);
+          }, 15000);
         }
         
         function stopWatchdog() {
