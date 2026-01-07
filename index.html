@@ -54,8 +54,9 @@
         right: 0;
         bottom: 0;
         width: 100vw;
+        height: 100%;
         height: 100vh;
-        height: 100dvh;
+        height: -webkit-fill-available;
         display: flex;
         flex-direction: row;
         background: #0a0515;
@@ -345,8 +346,9 @@
         right: 0;
         bottom: 0;
         width: 100vw;
+        height: 100%;
         height: 100vh;
-        height: 100dvh;
+        height: -webkit-fill-available;
         background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
         color: white;
         font-family: 'Segoe UI', Arial, sans-serif;
@@ -401,7 +403,7 @@
         border: 1px solid rgba(124, 58, 237, 0.3);
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-Qth2n2yj.js"></script>
+    <script type="module" crossorigin src="./assets/index-JUs58R47.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-DAOn7GMK.css">
   </head>
   <body>
@@ -471,17 +473,24 @@
           var portraitBlocker = document.getElementById('portrait-blocker');
           if (!portraitBlocker) return;
           
-          // Check if mobile device (touch capability or small screen)
-          var hasTouchCapability = 
-            navigator.maxTouchPoints >= 1 ||
-            'ontouchstart' in window ||
-            window.matchMedia('(pointer: coarse)').matches;
+          // Check if mobile device (touch capability or small screen) - with safety guards
+          var hasTouchCapability = false;
+          try {
+            hasTouchCapability = 
+              (typeof navigator !== 'undefined' && typeof navigator.maxTouchPoints === 'number' && navigator.maxTouchPoints >= 1) ||
+              ('ontouchstart' in window) ||
+              (typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches);
+          } catch (e) {
+            hasTouchCapability = false;
+          }
           
-          var minDimension = Math.min(window.innerWidth, window.innerHeight);
+          var innerW = typeof window.innerWidth === 'number' && window.innerWidth > 0 ? window.innerWidth : 1152;
+          var innerH = typeof window.innerHeight === 'number' && window.innerHeight > 0 ? window.innerHeight : 768;
+          var minDimension = Math.min(innerW, innerH);
           var isMobile = hasTouchCapability || minDimension <= 820;
           
-          // Check if portrait mode (height > width)
-          var isPortrait = window.innerHeight > window.innerWidth;
+          // Check if portrait mode (height > width) - with safety guards
+          var isPortrait = innerH > innerW;
           
           if (isMobile && isPortrait) {
             // Show portrait blocker, pause game
@@ -698,21 +707,38 @@
             try {
               var container = document.getElementById('game-container');
               var overlay = document.getElementById('ui-overlay-root');
-              var canvas = container ? container.querySelector('canvas') : null;
               
               if (!overlay || !container) return;
               
+              // Safely query canvas
+              var canvas = null;
+              try {
+                canvas = container.querySelector('canvas');
+              } catch (e) {
+                // querySelector may fail in edge cases
+                return;
+              }
+              
               if (canvas) {
-                var rect = canvas.getBoundingClientRect();
-                var containerRect = container.getBoundingClientRect();
+                var rect, containerRect;
+                try {
+                  rect = canvas.getBoundingClientRect();
+                  containerRect = container.getBoundingClientRect();
+                } catch (e) {
+                  // getBoundingClientRect may fail during page transition
+                  return;
+                }
                 
-                // GUARD: Skip if rect values are 0 or non-finite
-                var w = rect.width;
-                var h = rect.height;
-                var l = rect.left - containerRect.left;
-                var t = rect.top - containerRect.top;
+                // GUARD: Skip if rect is null/undefined
+                if (!rect || !containerRect) return;
                 
-                if (!Number.isFinite(w) || !Number.isFinite(h) || w <= 0 || h <= 0) {
+                // GUARD: Skip if rect values are 0 or non-finite - with type checking
+                var w = typeof rect.width === 'number' ? rect.width : 0;
+                var h = typeof rect.height === 'number' ? rect.height : 0;
+                var l = (typeof rect.left === 'number' ? rect.left : 0) - (typeof containerRect.left === 'number' ? containerRect.left : 0);
+                var t = (typeof rect.top === 'number' ? rect.top : 0) - (typeof containerRect.top === 'number' ? containerRect.top : 0);
+                
+                if (!Number.isFinite(w) || !Number.isFinite(h) || !Number.isFinite(l) || !Number.isFinite(t) || w <= 0 || h <= 0) {
                   // Non-finite or zero dimensions - retry on next frame
                   syncRetryCount++;
                   if (syncRetryCount < maxSyncRetries) {
@@ -1010,15 +1036,15 @@
         function startWatchdog() {
           if (watchdogTimeout) clearTimeout(watchdogTimeout);
           
-          // 15 second timeout for first update (increased from 5 for slower devices/networks)
-          // The game signals multiple times during loading, so if we don't hear back in 15s, it's truly stuck
+          // 20 second timeout for first update (increased for slower mobile devices)
+          // The game signals multiple times during loading, so if we don't hear back in 20s, it's truly stuck
           watchdogTimeout = setTimeout(function() {
             if (!gameStarted && !watchdogTriggered) {
               watchdogTriggered = true;
               console.error('[Watchdog] Game appears stuck - triggering recovery');
               showWatchdogOverlay();
             }
-          }, 15000);
+          }, 20000);
         }
         
         function stopWatchdog() {
@@ -1113,8 +1139,9 @@
           } catch(e) {}
         };
         
-        // Start watchdog immediately
-        startWatchdog();
+        // Start watchdog after a delay to allow page to initialize
+        // MOBILE FIX: Delay watchdog start to prevent false positives during slow page load
+        setTimeout(startWatchdog, 500);
         
         // ===== 6. WEBGL CONTEXT HANDLING =====
         var webglRecoveryAttempts = 0;
