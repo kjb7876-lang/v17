@@ -27,63 +27,18 @@
       },
       {
         "type": "image",
-        "key": "bg01",
-        "url": "https://cdn-game-mcp.gambo.ai/c41eb284-4452-47da-ad67-68b56aadfc6b/uploads/c41eb284-4452-47da-ad67-68b56aadfc6b.png"
-      },
-      {
-        "type": "image",
-        "key": "bg02",
-        "url": "https://cdn-game-mcp.gambo.ai/c41eb284-4452-47da-ad67-68b56aadfc6b/uploads/c41eb284-4452-47da-ad67-68b56aadfc6b.png"
-      },
-      {
-        "type": "image",
-        "key": "ep1_swamp_hell_background",
-        "url": "https://cdn-gambo-public.gambo.ai/assets/VbWBT-Eivg7PN1ajMik7G.png"
-      },
-      {
-        "type": "image",
-        "key": "ep1_r9_swamp_boss",
-        "url": "https://cdn-gambo-public.gambo.ai/assets/Wd5ORPf80WHNkiDemmK_C.png"
-      },
-      {
-        "type": "image",
-        "key": "ep2_corpse_jungle_bg",
-        "url": "https://cdn-gambo-public.gambo.ai/assets/Wd5ORPf80WHNkiDemmK_C.png"
-      },
-      {
-        "type": "image",
-        "key": "bg14",
-        "url": "https://cdn-game-mcp.gambo.ai/d3e118ee-7385-4010-b554-fc2b21c5e228/uploads/d3e118ee-7385-4010-b554-fc2b21c5e228.png"
-      },
-      {
-        "type": "image",
-        "key": "bg09",
-        "url": "https://cdn-game-mcp.gambo.ai/04a07f34-55cf-4efc-9949-dcd45e64740d/uploads/04a07f34-55cf-4efc-9949-dcd45e64740d.png"
-      },
-      {
-        "type": "image",
-        "key": "ep8_nightmare_park_background",
-        "url": "https://cdn-game-mcp.gambo.ai/18c582d1-80f7-4541-bbef-2ec2a7514d37/uploads/18c582d1-80f7-4541-bbef-2ec2a7514d37.png"
-      },
-      {
-        "type": "image",
-        "key": "ep9_hospital_background",
-        "url": "https://cdn-game-mcp.gambo.ai/f0a5f64e-2eb3-4d23-87c4-5bf580eddd30/uploads/f0a5f64e-2eb3-4d23-87c4-5bf580eddd30.png"
-      },
-      {
-        "type": "image",
-        "key": "ep11_r9_final_boss_background",
-        "url": "https://cdn-game-mcp.gambo.ai/6d602a6c-c208-4bf4-ba5f-b98f9eea5520/uploads/6d602a6c-c208-4bf4-ba5f-b98f9eea5520.png"
-      },
-      {
-        "type": "image",
         "key": "gluttony_map_background",
         "url": "https://cdn-game-mcp.gambo.ai/a944ec0c-4539-486b-a636-f6ed69cea804/uploads/a944ec0c-4539-486b-a636-f6ed69cea804.png"
       },
       {
         "type": "image",
-        "key": "lust_map_background",
-        "url": "https://cdn-gambo-public.gambo.ai/assets/06Rd1-wPb9mTCRFpCApau.png"
+        "key": "ep9_map_background",
+        "url": "https://cdn-game-mcp.gambo.ai/9c29eac4-58ee-459a-b150-0950d9403828/uploads/9c29eac4-58ee-459a-b150-0950d9403828.png"
+      },
+      {
+        "type": "image",
+        "key": "ep8_nightmare_park_background",
+        "url": "https://cdn-game-mcp.gambo.ai/93e36093-b9e5-45e9-a20c-3cf0b8e3f822/uploads/93e36093-b9e5-45e9-a20c-3cf0b8e3f822.png"
       }
     ]
   },
@@ -103,11 +58,6 @@
         "type": "image",
         "key": "warrior_corpse",
         "url": "https://cdn-gambo-public.gambo.ai/assets/IL6KPmD21i2Fttzmb2wks.png"
-      },
-      {
-        "type": "image",
-        "key": "hunter_game_title",
-        "url": "https://cdn-game-mcp.gambo.ai/a9a9b71f-637e-431b-b9d2-bd9caa529a29/images/hunter_game_title.png"
       },
       {
         "type": "image",
@@ -764,6 +714,16 @@
       },
       {
         "type": "image",
+        "key": "ant_tunnel_wall",
+        "url": "https://cdn-game-mcp.gambo.ai/8e40fa9f-8140-4e4a-ab36-6f58f0861a32/tilesets/ant_tunnel_wall.png"
+      },
+      {
+        "type": "image",
+        "key": "stone_wall_tileset",
+        "url": "https://cdn-game-mcp.gambo.ai/aee0c729-960a-463e-b9ce-ddf7ea494a80/uploads/aee0c729-960a-463e-b9ce-ddf7ea494a80.png"
+      },
+      {
+        "type": "image",
         "key": "town_cobblestone",
         "url": "https://cdn-gambo-public.gambo.ai/assets/SI0RjchxD2Y0hhGpEvDUV.png"
       },
@@ -1005,6 +965,20 @@
         "key": "balrog_idle_back_frame2",
         "url": "https://cdn-game-mcp.gambo.ai/ed604410-5059-4796-9cfe-6bb56a528839/animations/balrog_idle_back/frame_2.png"
       }
+    ]
+  },
+  "bone_web_obstacles": {
+    "files": [
+      { "type": "image", "key": "dungeon_bone_obstacle_variant_1", "url": "https://cdn-game-mcp.gambo.ai/cdee0e4a-700a-4b35-b75e-32d024f29c55/images/dungeon_bone_obstacle/variant_1.png" },
+      { "type": "image", "key": "dungeon_bone_obstacle_variant_2", "url": "https://cdn-game-mcp.gambo.ai/616c2159-037d-4c79-ae1b-211b36bb74db/images/dungeon_bone_obstacle/variant_2.png" },
+      { "type": "image", "key": "dungeon_bone_obstacle_variant_3", "url": "https://cdn-game-mcp.gambo.ai/5f131c52-98bd-43e6-b021-0870bd1e2e5a/images/dungeon_bone_obstacle/variant_3.png" },
+      { "type": "image", "key": "dungeon_bone_obstacle_variant_4", "url": "https://cdn-game-mcp.gambo.ai/6fbce0f3-83e5-493e-b7fd-43db61f1645e/images/dungeon_bone_obstacle/variant_4.png" },
+      { "type": "image", "key": "dungeon_bone_obstacle_variant_5", "url": "https://cdn-game-mcp.gambo.ai/298f016d-b85c-4cd1-b3fd-14f53c27ed9e/images/dungeon_bone_obstacle/variant_5.png" },
+      { "type": "image", "key": "dungeon_bone_obstacle_variant_6", "url": "https://cdn-game-mcp.gambo.ai/82e5f197-b220-4fb8-bc86-fd36897ce403/images/dungeon_bone_obstacle/variant_6.png" },
+      { "type": "image", "key": "dungeon_bone_obstacle_variant_7", "url": "https://cdn-game-mcp.gambo.ai/5fcf42da-8a85-42ce-8b73-a629c812c784/images/dungeon_bone_obstacle/variant_7.png" },
+      { "type": "image", "key": "dungeon_bone_obstacle_variant_8", "url": "https://cdn-game-mcp.gambo.ai/d29b8ef1-73bc-4cc9-936f-e383bff7ce67/images/dungeon_bone_obstacle/variant_8.png" },
+      { "type": "image", "key": "dungeon_bone_obstacle_variant_9", "url": "https://cdn-game-mcp.gambo.ai/d9d436ae-8335-48ee-bfc3-c61cd86527d9/images/dungeon_bone_obstacle/variant_9.png" },
+      { "type": "image", "key": "skeleton_corpse_pile", "url": "https://cdn-game-mcp.gambo.ai/b8d60838-44fe-459a-a00b-b339ea23071f/uploads/b8d60838-44fe-459a-a00b-b339ea23071f.png" }
     ]
   },
   "seductress_boss_assets": {

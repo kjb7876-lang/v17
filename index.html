@@ -45,20 +45,70 @@
         -webkit-overflow-scrolling: touch;
       }
       
-      /* Game container - FULLSCREEN with NO black bars
-       * Uses visualViewport height for true fullscreen on mobile
-       * ENVELOP mode ensures canvas covers entire container
-       * FIXED: No safe-area padding - let canvas fill entire viewport */
-      #game-container {
+      /* 3-Column Layout Container - UI | Game | UI (10% | 80% | 10%) 
+       * This layout is for MOBILE only - on desktop, panels are hidden */
+      #main-layout {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
         width: 100vw;
-        /* Use dvh (dynamic viewport height) with fallback for true fullscreen */
         height: 100vh;
         height: 100dvh;
+        display: flex;
+        flex-direction: row;
+        background: #0a0515;
+        touch-action: none;
+        overflow: hidden;
+        overscroll-behavior: none;
+      }
+      
+      /* Left UI Panel - 10% width (Joystick area) - MOBILE ONLY */
+      #left-ui-panel {
+        width: 10%;
+        min-width: 80px;
+        max-width: 120px;
+        height: 100%;
+        background: linear-gradient(180deg, rgba(15, 5, 30, 0.98) 0%, rgba(10, 5, 20, 0.95) 100%);
+        border-right: 2px solid rgba(80, 60, 90, 0.6);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        padding-bottom: 20px;
+        position: relative;
+        z-index: 1001;
+        box-shadow: 3px 0 15px rgba(0, 0, 0, 0.5);
+      }
+      
+      /* Right UI Panel - 10% width (Skill buttons) - MOBILE ONLY */
+      #right-ui-panel {
+        width: 10%;
+        min-width: 80px;
+        max-width: 120px;
+        height: 100%;
+        background: linear-gradient(180deg, rgba(15, 5, 30, 0.98) 0%, rgba(10, 5, 20, 0.95) 100%);
+        border-left: 2px solid rgba(80, 60, 90, 0.6);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        padding-bottom: 20px;
+        position: relative;
+        z-index: 1001;
+        box-shadow: -3px 0 15px rgba(0, 0, 0, 0.5);
+      }
+      
+      /* UNIFIED LAYOUT: Same layout for both PC and Mobile
+       * Both desktop and mobile now show the 3-column layout:
+       * Left UI Panel (10%) | Game (80%) | Right UI Panel (10%)
+       * This ensures consistent experience across all devices */
+      
+      /* Game container - CENTER 80% area (100% on desktop) */
+      #game-container {
+        flex: 1;
+        height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -66,21 +116,17 @@
         touch-action: none;
         overflow: hidden;
         overscroll-behavior: none;
+        position: relative;
       }
       
-      /* Canvas should fill container but NEVER exceed visual viewport
-       * CRITICAL FIX: Prevents canvas from exceeding viewport on mobile
-       * Uses max-width/max-height to ensure no clipping occurs */
+      /* Canvas should fill center game container (80% area) */
       #game-container canvas {
         display: block;
         width: 100%;
         height: 100%;
-        /* MOBILE CLIPPING FIX: Prevent canvas from exceeding viewport */
-        max-width: 100vw;
-        max-height: 100vh;
-        max-height: 100dvh; /* Dynamic viewport height for mobile */
+        max-width: 100%;
+        max-height: 100%;
         touch-action: none;
-        /* Prevent any auto-scaling that could cause overflow */
         -o-object-fit: contain;
            object-fit: contain;
         /* Custom cursor: Large arrow pointer for better visibility */
@@ -355,13 +401,31 @@
         border: 1px solid rgba(124, 58, 237, 0.3);
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-dB76rz5w.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BPpBVr4y.css">
+    <script type="module" crossorigin src="./assets/index-20MVSnEX.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-DAOn7GMK.css">
   </head>
   <body>
-    <div id="game-container">
-      <!-- UI Overlay Root - positioned exactly on top of canvas -->
-      <div id="ui-overlay-root"></div>
+    <!-- 3-Column Layout: Left UI | Game | Right UI -->
+    <div id="main-layout">
+      <!-- Left UI Panel - Joystick Area (10%) -->
+      <div id="left-ui-panel">
+        <div id="left-panel-content" class="w-full h-full flex flex-col items-center justify-end pb-4">
+          <!-- Joystick will be moved here by UIScene -->
+        </div>
+      </div>
+      
+      <!-- Game Container (80%) -->
+      <div id="game-container">
+        <!-- UI Overlay Root - positioned exactly on top of canvas -->
+        <div id="ui-overlay-root"></div>
+      </div>
+      
+      <!-- Right UI Panel - Skill Buttons Area (10%) -->
+      <div id="right-ui-panel">
+        <div id="right-panel-content" class="w-full h-full flex flex-col items-center justify-end pb-4">
+          <!-- Skill buttons will be moved here by UIScene -->
+        </div>
+      </div>
     </div>
     
     <!-- Debug overlay for mobile error display -->
