@@ -403,8 +403,8 @@
         border: 1px solid rgba(124, 58, 237, 0.3);
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-CF9adMMt.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DAOn7GMK.css">
+    <script type="module" crossorigin src="./assets/index-Bo5oLd2h.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CoLI7MEY.css">
   </head>
   <body>
     <!-- 3-Column Layout: Left UI | Game | Right UI -->
@@ -445,12 +445,25 @@
       <button onclick="window.forceCanvasFallback && window.forceCanvasFallback()">Try Safe Mode</button>
     </div>
     
-    <!-- WebGL context lost overlay -->
+    <!-- WebGL context lost overlay - MOBILE SAFEMODE ENHANCED -->
     <div id="webgl-lost-overlay">
-      <h2>Graphics Error</h2>
+      <h2>⚠️ Graphics Error</h2>
       <p>The game's graphics context was lost.<br>This can happen due to low memory or background activity.</p>
-      <div class="countdown" id="webgl-countdown">Auto-recovering in 3s...</div>
-      <button onclick="window.location.reload()">Reload Now</button>
+      <div class="countdown" id="webgl-countdown">Attempting recovery...</div>
+      <div id="webgl-recovery-options" style="display: flex; flex-direction: column; gap: 10px; margin-top: 16px;">
+        <button id="webgl-safemode-btn" onclick="window.enterSafeMode && window.enterSafeMode()" style="background: #22c55e;">
+          ✅ Restart in Safe Mode (Recommended)
+        </button>
+        <button onclick="window.location.reload()" style="background: #7c3aed;">
+          🔄 Reload Game
+        </button>
+        <button id="webgl-retry-btn" onclick="window.attemptRendererRecovery && window.attemptRendererRecovery()" style="background: #6b7280; font-size: 12px;">
+          🔧 Try Minimal Recovery
+        </button>
+      </div>
+      <div id="webgl-info" style="margin-top: 12px; font-size: 11px; color: #888;">
+        <span id="webgl-device-info">Device: checking...</span>
+      </div>
     </div>
     
     <!-- Portrait mode blocker - Forces landscape on mobile -->
@@ -1143,16 +1156,105 @@
         // MOBILE FIX: Delay watchdog start to prevent false positives during slow page load
         setTimeout(startWatchdog, 500);
         
-        // ===== 6. WEBGL CONTEXT HANDLING =====
+        // ===== 6. WEBGL CONTEXT HANDLING - MOBILE SAFEMODE ENHANCED =====
         var webglRecoveryAttempts = 0;
         var maxWebglRecovery = 3;
+        var contextLostTime = 0;
+        var recoveryInProgress = false;
+        
+        // Detect iOS Safari for special handling
+        function isIOSSafari() {
+          var ua = navigator.userAgent || '';
+          var isIOS = /iPad|iPhone|iPod/.test(ua) || 
+            ((navigator.platform || '') === 'MacIntel' && navigator.maxTouchPoints > 1);
+          var isSafari = /Safari/.test(ua) && !/Chrome/.test(ua) && !/CriOS/.test(ua);
+          return isIOS || isSafari;
+        }
+        
+        // MOBILE SAFEMODE: Enter safe mode with minimal settings
+        window.enterSafeMode = function() {
+          console.log('[WebGL] Entering Safe Mode...');
+          try {
+            sessionStorage.setItem('forceCanvasRenderer', 'true');
+            sessionStorage.setItem('forceResolution', '1');
+            sessionStorage.setItem('forceSafeMode', 'true');
+            sessionStorage.setItem('recoveryAttempt', '1');
+          } catch(e) {
+            console.warn('[WebGL] sessionStorage error:', e);
+          }
+          window.location.reload();
+        };
+        
+        // MOBILE SAFEMODE: Attempt minimal recovery without full reload
+        window.attemptRendererRecovery = function() {
+          if (recoveryInProgress) return;
+          recoveryInProgress = true;
+          
+          console.log('[WebGL] Attempting minimal renderer recovery...');
+          var countdownEl = document.getElementById('webgl-countdown');
+          if (countdownEl) {
+            countdownEl.textContent = 'Attempting minimal recovery...';
+          }
+          
+          try {
+            if (window.game && window.game.scene) {
+              // Try to restart current scene without full page reload
+              var activeScenes = window.game.scene.getScenes(true);
+              if (activeScenes && activeScenes.length > 0) {
+                var currentScene = activeScenes[0];
+                console.log('[WebGL] Restarting scene:', currentScene.scene.key);
+                
+                // Pause briefly to allow GPU recovery
+                setTimeout(function() {
+                  try {
+                    currentScene.scene.restart();
+                    
+                    // Hide overlay after successful restart
+                    setTimeout(function() {
+                      var overlay = document.getElementById('webgl-lost-overlay');
+                      if (overlay) {
+                        overlay.classList.remove('visible');
+                      }
+                      recoveryInProgress = false;
+                    }, 500);
+                  } catch (e) {
+                    console.error('[WebGL] Scene restart failed:', e);
+                    if (countdownEl) {
+                      countdownEl.textContent = 'Recovery failed. Please use Safe Mode.';
+                    }
+                    recoveryInProgress = false;
+                  }
+                }, 1000);
+                return;
+              }
+            }
+          } catch (e) {
+            console.error('[WebGL] Recovery error:', e);
+          }
+          
+          if (countdownEl) {
+            countdownEl.textContent = 'Recovery failed. Please use Safe Mode or Reload.';
+          }
+          recoveryInProgress = false;
+        };
         
         function setupWebGLHandlers() {
           var gameContainer = document.getElementById('game-container');
           var webglLostOverlay = document.getElementById('webgl-lost-overlay');
           var countdownEl = document.getElementById('webgl-countdown');
+          var deviceInfoEl = document.getElementById('webgl-device-info');
           
           if (!gameContainer || !webglLostOverlay) return;
+          
+          // Update device info display
+          if (deviceInfoEl) {
+            var isMobile = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+            var isIOS = isIOSSafari();
+            deviceInfoEl.textContent = 'Device: ' + (isMobile ? 'Mobile' : 'Desktop') + 
+              (isIOS ? ' (iOS Safari)' : '') + 
+              ' | DPR: ' + (window.devicePixelRatio || 1).toFixed(1) +
+              ' | Recovery: ' + webglRecoveryAttempts;
+          }
           
           function findAndSetupCanvas() {
             var canvas = gameContainer.querySelector('canvas');
@@ -1166,48 +1268,88 @@
               console.error('[WebGL] Context lost');
               event.preventDefault();
               
-              webglLostOverlay.classList.add('visible');
-              showError('WebGL', 'Graphics context lost', '');
+              contextLostTime = Date.now();
+              webglRecoveryAttempts++;
               
-              // Auto-recovery countdown
-              var countdown = 3;
-              var countdownInterval = setInterval(function() {
-                countdown--;
+              // Update device info
+              if (deviceInfoEl) {
+                deviceInfoEl.textContent = 'Device: ' + (('ontouchstart' in window) ? 'Mobile' : 'Desktop') + 
+                  ' | Recovery attempt: ' + webglRecoveryAttempts + '/' + maxWebglRecovery;
+              }
+              
+              webglLostOverlay.classList.add('visible');
+              showError('WebGL', 'Graphics context lost (attempt ' + webglRecoveryAttempts + ')', '');
+              
+              // MOBILE SAFEMODE: Different behavior based on device and attempt count
+              if (isIOSSafari() || webglRecoveryAttempts >= 2) {
+                // iOS Safari or multiple failures: recommend Safe Mode immediately
                 if (countdownEl) {
-                  countdownEl.textContent = 'Auto-recovering in ' + countdown + 's...';
+                  countdownEl.textContent = 'iOS detected - Safe Mode recommended';
                 }
-                if (countdown <= 0) {
-                  clearInterval(countdownInterval);
-                  webglRecoveryAttempts++;
-                  
-                  if (webglRecoveryAttempts >= maxWebglRecovery) {
-                    // Force canvas fallback after multiple WebGL failures
-                    window.forceCanvasFallback();
-                  } else {
-                    window.location.reload();
+                // Auto-enter safe mode after 5 seconds if no user action
+                setTimeout(function() {
+                  if (webglLostOverlay.classList.contains('visible')) {
+                    console.log('[WebGL] Auto-entering Safe Mode for iOS stability');
+                    window.enterSafeMode();
                   }
+                }, 5000);
+              } else {
+                // First attempt on non-iOS: try automatic recovery
+                var countdown = 5;
+                if (countdownEl) {
+                  countdownEl.textContent = 'Auto-recovery in ' + countdown + 's...';
                 }
-              }, 1000);
+                
+                var countdownInterval = setInterval(function() {
+                  countdown--;
+                  if (countdownEl) {
+                    countdownEl.textContent = 'Auto-recovery in ' + countdown + 's...';
+                  }
+                  if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    
+                    if (webglRecoveryAttempts >= maxWebglRecovery) {
+                      // Max attempts reached: force safe mode
+                      window.enterSafeMode();
+                    } else {
+                      // Try reload first
+                      window.location.reload();
+                    }
+                  }
+                }, 1000);
+              }
             }, false);
             
             canvas.addEventListener('webglcontextrestored', function(event) {
               console.log('[WebGL] Context restored');
+              var restoreTime = Date.now() - contextLostTime;
+              console.log('[WebGL] Context restored after ' + restoreTime + 'ms');
+              
               webglLostOverlay.classList.remove('visible');
               
               try {
                 if (window.game && window.game.scene) {
                   var activeScenes = window.game.scene.getScenes(true);
                   if (activeScenes && activeScenes.length > 0) {
-                    activeScenes[0].scene.restart();
+                    // Brief delay to ensure GPU is ready
+                    setTimeout(function() {
+                      try {
+                        activeScenes[0].scene.restart();
+                        console.log('[WebGL] Scene restarted successfully');
+                      } catch (e) {
+                        console.warn('[WebGL] Scene restart failed:', e);
+                        window.location.reload();
+                      }
+                    }, 500);
                   }
                 }
               } catch (e) {
-                console.warn('[WebGL] Scene restart failed:', e);
+                console.warn('[WebGL] Context restore handling failed:', e);
                 window.location.reload();
               }
             }, false);
             
-            console.log('[WebGL] Context handlers attached');
+            console.log('[WebGL] Context handlers attached (SafeMode enhanced)');
           }
           
           findAndSetupCanvas();
