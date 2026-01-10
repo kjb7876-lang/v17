@@ -604,6 +604,171 @@
       "repeat": -1,
       "originX": 0.5,
       "originY": 1.0
+    },
+    {
+      "key": "balrog_walk_R_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "balrog_walk_R_frame1", "duration": 200 },
+        { "key": "balrog_walk_R_frame2", "duration": 200 }
+      ],
+      "repeat": -1,
+      "originX": 0.387,
+      "originY": 1.0
+    },
+    {
+      "key": "balrog_walk_front_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "balrog_walk_front_frame1", "duration": 200 },
+        { "key": "balrog_walk_front_frame2", "duration": 200 }
+      ],
+      "repeat": -1,
+      "originX": 0.5,
+      "originY": 0.798
+    },
+    {
+      "key": "balrog_walk_back_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "balrog_walk_back_frame1", "duration": 200 },
+        { "key": "balrog_walk_back_frame2", "duration": 200 }
+      ],
+      "repeat": -1,
+      "originX": 0.5,
+      "originY": 1.0
+    },
+    {
+      "key": "balrog_attack_R_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "balrog_attack_R_frame1", "duration": 100 },
+        { "key": "balrog_attack_R_frame2", "duration": 200 }
+      ],
+      "repeat": 0,
+      "originX": 0.33,
+      "originY": 1.0
+    },
+    {
+      "key": "balrog_die_R_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "balrog_die_R_frame1", "duration": 300 },
+        { "key": "balrog_die_R_frame2", "duration": 400 }
+      ],
+      "repeat": 0,
+      "originX": 0.368,
+      "originY": 1.0
+    },
+    {
+      "key": "seductress_boss_walk_R_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "seductress_boss_walk_R_frame1", "duration": 200 },
+        { "key": "seductress_boss_walk_R_frame2", "duration": 200 }
+      ],
+      "repeat": -1,
+      "originX": 0.146,
+      "originY": 1.0
+    },
+    {
+      "key": "seductress_boss_walk_front_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "seductress_boss_walk_front_frame1", "duration": 200 },
+        { "key": "seductress_boss_walk_front_frame2", "duration": 200 }
+      ],
+      "repeat": -1,
+      "originX": 0.5,
+      "originY": 0.612
+    },
+    {
+      "key": "seductress_boss_walk_back_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "seductress_boss_walk_back_frame1", "duration": 200 },
+        { "key": "seductress_boss_walk_back_frame2", "duration": 200 }
+      ],
+      "repeat": -1,
+      "originX": 0.5,
+      "originY": 1.0
+    },
+    {
+      "key": "seductress_boss_attack_R_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "seductress_boss_attack_R_frame1", "duration": 80 },
+        { "key": "seductress_boss_attack_R_frame2", "duration": 120 }
+      ],
+      "repeat": 0,
+      "originX": 0.166,
+      "originY": 1.0
+    },
+    {
+      "key": "seductress_boss_die_R_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "seductress_boss_die_R_frame1", "duration": 300 },
+        { "key": "seductress_boss_die_R_frame2", "duration": 400 }
+      ],
+      "repeat": 0,
+      "originX": 0.09,
+      "originY": 1.0
+    },
+    {
+      "key": "chef_boss_walk_R_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "chef_boss_walk_R_frame1", "duration": 200 },
+        { "key": "chef_boss_walk_R_frame2", "duration": 200 }
+      ],
+      "repeat": -1,
+      "originX": 0.238,
+      "originY": 1.0
+    },
+    {
+      "key": "chef_boss_walk_front_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "chef_boss_walk_front_frame1", "duration": 200 },
+        { "key": "chef_boss_walk_front_frame2", "duration": 200 }
+      ],
+      "repeat": -1,
+      "originX": 0.5,
+      "originY": 0.612
+    },
+    {
+      "key": "chef_boss_walk_back_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "chef_boss_walk_back_frame1", "duration": 200 },
+        { "key": "chef_boss_walk_back_frame2", "duration": 200 }
+      ],
+      "repeat": -1,
+      "originX": 0.5,
+      "originY": 1.0
+    },
+    {
+      "key": "chef_boss_attack_R_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "chef_boss_attack_R_frame1", "duration": 100 },
+        { "key": "chef_boss_attack_R_frame2", "duration": 200 }
+      ],
+      "repeat": 0,
+      "originX": 0.202,
+      "originY": 1.0
+    },
+    {
+      "key": "chef_boss_die_R_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "chef_boss_die_R_frame1", "duration": 300 },
+        { "key": "chef_boss_die_R_frame2", "duration": 400 }
+      ],
+      "repeat": 0,
+      "originX": 0.223,
+      "originY": 1.0
     }
   ]
 }

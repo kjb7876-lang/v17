@@ -39,6 +39,11 @@
         "type": "image",
         "key": "ep8_nightmare_park_background",
         "url": "https://cdn-game-mcp.gambo.ai/93e36093-b9e5-45e9-a20c-3cf0b8e3f822/uploads/93e36093-b9e5-45e9-a20c-3cf0b8e3f822.png"
+      },
+      {
+        "type": "image",
+        "key": "infinite_defense_background",
+        "url": "https://cdn-game-mcp.gambo.ai/21b4d2c7-957e-437e-83ee-319ec70f5301/uploads/21b4d2c7-957e-437e-83ee-319ec70f5301.png"
       }
     ]
   },
@@ -108,6 +113,11 @@
         "type": "image",
         "key": "blood_sword_slash_effect",
         "url": "https://cdn-gambo-public.gambo.ai/assets/r8hVz7413fCC46L_Hn6KT.png"
+      },
+      {
+        "type": "image",
+        "key": "crimson_petal_slash_effect",
+        "url": "https://cdn-game-mcp.gambo.ai/619802f2-4e0e-4e1f-b63b-ab3cb98346bc/uploads/619802f2-4e0e-4e1f-b63b-ab3cb98346bc.png"
       },
       {
         "type": "image",
@@ -1027,6 +1037,185 @@
         "type": "image",
         "key": "seductress_boss_idle_back_frame2",
         "url": "https://cdn-game-mcp.gambo.ai/6d569900-b701-494f-a294-3bfe86ec62e4/animations/seductress_boss_idle_back/frame_2.png"
+      }
+    ]
+  },
+  "boss_new_animations": {
+    "files": [
+      { "type": "image", "key": "balrog_walk_R_frame1", "url": "https://cdn-game-mcp.gambo.ai/c50e1043-1238-4a00-a671-1b0323b6405b/animations/balrog_walk_R/frame_1.png" },
+      { "type": "image", "key": "balrog_walk_R_frame2", "url": "https://cdn-game-mcp.gambo.ai/cdf563c7-a0f3-45a8-bf67-53dc1d8d99ca/animations/balrog_walk_R/frame_2.png" },
+      { "type": "image", "key": "balrog_walk_front_frame1", "url": "https://cdn-game-mcp.gambo.ai/f902dfa5-92f5-415e-a1f9-3ae805c614d7/animations/balrog_walk_front/frame_1.png" },
+      { "type": "image", "key": "balrog_walk_front_frame2", "url": "https://cdn-game-mcp.gambo.ai/345963b0-aac6-43f3-9d6f-16add6b8cf5b/animations/balrog_walk_front/frame_2.png" },
+      { "type": "image", "key": "balrog_walk_back_frame1", "url": "https://cdn-game-mcp.gambo.ai/5ea9b8ca-411a-416f-a4e2-e07d379c1295/animations/balrog_walk_back/frame_1.png" },
+      { "type": "image", "key": "balrog_walk_back_frame2", "url": "https://cdn-game-mcp.gambo.ai/554b4e75-5158-44fd-b596-74968e6172d2/animations/balrog_walk_back/frame_2.png" },
+      { "type": "image", "key": "balrog_attack_R_frame1", "url": "https://cdn-game-mcp.gambo.ai/09f7d21c-d695-41e5-b43e-cce13f6f639e/animations/balrog_attack_R/frame_1.png" },
+      { "type": "image", "key": "balrog_attack_R_frame2", "url": "https://cdn-game-mcp.gambo.ai/75c17091-b89b-4789-8d40-337233a30f5e/animations/balrog_attack_R/frame_2.png" },
+      { "type": "image", "key": "balrog_die_R_frame1", "url": "https://cdn-game-mcp.gambo.ai/6aeb3bbd-dc59-40e1-a900-d854fab0404b/animations/balrog_die_R/frame_1.png" },
+      { "type": "image", "key": "balrog_die_R_frame2", "url": "https://cdn-game-mcp.gambo.ai/82c8ed47-ba22-4a99-b49d-39549a586fb1/animations/balrog_die_R/frame_2.png" },
+      { "type": "image", "key": "seductress_boss_walk_R_frame1", "url": "https://cdn-game-mcp.gambo.ai/4f0cdecc-4a6f-46dd-acf1-f246add56d4e/animations/seductress_boss_walk_R/frame_1.png" },
+      { "type": "image", "key": "seductress_boss_walk_R_frame2", "url": "https://cdn-game-mcp.gambo.ai/0d53db8e-af13-4317-98b1-34717a42c0a6/animations/seductress_boss_walk_R/frame_2.png" },
+      { "type": "image", "key": "seductress_boss_walk_front_frame1", "url": "https://cdn-game-mcp.gambo.ai/a03756cc-9cfb-4c87-b9de-23df9afa3a24/animations/seductress_boss_walk_front/frame_1.png" },
+      { "type": "image", "key": "seductress_boss_walk_front_frame2", "url": "https://cdn-game-mcp.gambo.ai/a304a633-edd9-407d-b51f-235adf9bb324/animations/seductress_boss_walk_front/frame_2.png" },
+      { "type": "image", "key": "seductress_boss_walk_back_frame1", "url": "https://cdn-game-mcp.gambo.ai/10fcb0c2-8d80-48ca-bad9-d07fe89471f7/animations/seductress_boss_walk_back/frame_1.png" },
+      { "type": "image", "key": "seductress_boss_walk_back_frame2", "url": "https://cdn-game-mcp.gambo.ai/07765048-5e7c-456f-a429-1ea85152dfa4/animations/seductress_boss_walk_back/frame_2.png" },
+      { "type": "image", "key": "seductress_boss_attack_R_frame1", "url": "https://cdn-game-mcp.gambo.ai/e3d5ba40-84d5-4e70-abc7-eadd322ef53a/animations/seductress_boss_attack_R/frame_1.png" },
+      { "type": "image", "key": "seductress_boss_attack_R_frame2", "url": "https://cdn-game-mcp.gambo.ai/22e75aac-ad21-4c12-b204-1b26aa6db900/animations/seductress_boss_attack_R/frame_2.png" },
+      { "type": "image", "key": "seductress_boss_die_R_frame1", "url": "https://cdn-game-mcp.gambo.ai/cc3ee0df-afd1-421f-b55a-a1998d696e7d/animations/seductress_boss_die_R/frame_1.png" },
+      { "type": "image", "key": "seductress_boss_die_R_frame2", "url": "https://cdn-game-mcp.gambo.ai/03e4dd72-51df-4bb5-9cc9-849c22c21548/animations/seductress_boss_die_R/frame_2.png" },
+      { "type": "image", "key": "chef_boss_walk_R_frame1", "url": "https://cdn-game-mcp.gambo.ai/17b048ad-34af-4d0d-a547-9352824e4921/animations/chef_boss_walk_R/frame_1.png" },
+      { "type": "image", "key": "chef_boss_walk_R_frame2", "url": "https://cdn-game-mcp.gambo.ai/90ef62a2-68b7-47bf-b2f5-dda1518f2c3d/animations/chef_boss_walk_R/frame_2.png" },
+      { "type": "image", "key": "chef_boss_walk_front_frame1", "url": "https://cdn-game-mcp.gambo.ai/ee2d435d-3b08-45b1-a375-ecf5a84c5348/animations/chef_boss_walk_front/frame_1.png" },
+      { "type": "image", "key": "chef_boss_walk_front_frame2", "url": "https://cdn-game-mcp.gambo.ai/7d13c004-a85b-411f-8da5-5fd2a2da6e2d/animations/chef_boss_walk_front/frame_2.png" },
+      { "type": "image", "key": "chef_boss_walk_back_frame1", "url": "https://cdn-game-mcp.gambo.ai/334b71ff-6451-4c91-aeae-eef87958861c/animations/chef_boss_walk_back/frame_1.png" },
+      { "type": "image", "key": "chef_boss_walk_back_frame2", "url": "https://cdn-game-mcp.gambo.ai/6df53039-ae9f-43cb-b1de-98160d6d7f32/animations/chef_boss_walk_back/frame_2.png" },
+      { "type": "image", "key": "chef_boss_attack_R_frame1", "url": "https://cdn-game-mcp.gambo.ai/7c0c1581-106f-4f7b-8ee3-fc8bb283e097/animations/chef_boss_attack_R/frame_1.png" },
+      { "type": "image", "key": "chef_boss_attack_R_frame2", "url": "https://cdn-game-mcp.gambo.ai/6a46ea1a-350e-4abc-a7fc-ffc680705e35/animations/chef_boss_attack_R/frame_2.png" },
+      { "type": "image", "key": "chef_boss_die_R_frame1", "url": "https://cdn-game-mcp.gambo.ai/f45d6555-082f-4703-9347-a583d903d082/animations/chef_boss_die_R/frame_1.png" },
+      { "type": "image", "key": "chef_boss_die_R_frame2", "url": "https://cdn-game-mcp.gambo.ai/d8350fec-0c3c-4f61-b0ab-6e92abea447d/animations/chef_boss_die_R/frame_2.png" }
+    ]
+  },
+  "archer_skill_assets": {
+    "files": [
+      {
+        "type": "image",
+        "key": "napalm_nuke_explosion",
+        "url": "https://cdn-game-mcp.gambo.ai/f93edbf3-90df-4ebc-ba9c-ba5bb93b5a01/images/napalm_nuke_explosion.png"
+      },
+      {
+        "type": "audio",
+        "key": "napalm_nuke_explosion",
+        "url": "https://cdn-game-mcp.gambo.ai/741b69e9-db18-4c51-8e92-b22756250772/sound_effects/napalm_nuke_explosion.mp3"
+      }
+    ]
+  },
+  "warrior_skill_assets": {
+    "files": [
+      {
+        "type": "image",
+        "key": "blood_dance_effect",
+        "url": "https://cdn-game-mcp.gambo.ai/8349b2e8-936c-4777-8047-e67a6935c080/uploads/8349b2e8-936c-4777-8047-e67a6935c080.png"
+      },
+      {
+        "type": "audio",
+        "key": "blood_dance_slash",
+        "url": "https://cdn-game-mcp.gambo.ai/c9e459c3-9255-4ea4-b9d0-c5b1b9dafc2c/sound_effects/blood_dance_slash.mp3"
+      },
+      {
+        "type": "image",
+        "key": "seven_blade_draw_effect",
+        "url": "https://cdn-game-mcp.gambo.ai/dba56d97-2873-4220-bff1-c0abbe0ea301/uploads/dba56d97-2873-4220-bff1-c0abbe0ea301.png"
+      },
+      {
+        "type": "image",
+        "key": "blood_slash_effect",
+        "url": "https://cdn-game-mcp.gambo.ai/31f228c2-8ecd-4359-8bc1-517eb06edcc3/images/blood_slash_effect.png"
+      },
+      {
+        "type": "image",
+        "key": "warp_trail_effect",
+        "url": "https://cdn-game-mcp.gambo.ai/489b098a-a63e-4c29-8bd3-a84366b20192/images/warp_trail_effect.png"
+      },
+      {
+        "type": "audio",
+        "key": "seven_blade_charge",
+        "url": "https://cdn-game-mcp.gambo.ai/4977c0c8-efcd-42ea-8d28-d3a7c0d98253/sound_effects/seven_blade_charge.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "seven_blade_warp",
+        "url": "https://cdn-game-mcp.gambo.ai/a6cf6604-ffcb-42f0-8d79-48770b18d75f/sound_effects/seven_blade_warp.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "seven_blade_execute",
+        "url": "https://cdn-game-mcp.gambo.ai/a4732d58-4399-44fd-b62c-19a28b7a4f0b/sound_effects/seven_blade_execute.mp3"
+      }
+    ]
+  },
+  "skill7_time_reset_assets": {
+    "files": [
+      {
+        "type": "image",
+        "key": "holy_cross_effect",
+        "url": "https://cdn-game-mcp.gambo.ai/ebf05fee-4b61-4b61-92df-60a8339d3188/uploads/ebf05fee-4b61-4b61-92df-60a8339d3188.png"
+      }
+    ]
+  },
+  "archer_skill5_assets": {
+    "files": [
+      {
+        "type": "image",
+        "key": "archer_judgement_aura",
+        "url": "https://cdn-game-mcp.gambo.ai/2d079601-9951-4fbc-b9dd-89d9c37c480e/uploads/2d079601-9951-4fbc-b9dd-89d9c37c480e.png"
+      },
+      {
+        "type": "image",
+        "key": "red_cross_mark_effect",
+        "url": "https://cdn-game-mcp.gambo.ai/19918d21-45eb-47cf-b32b-34607cde1bae/images/red_cross_mark_effect.png"
+      },
+      {
+        "type": "image",
+        "key": "blood_explosion_effect",
+        "url": "https://cdn-game-mcp.gambo.ai/dd2d8f4d-ecef-40e4-8146-612dcc4ed102/images/blood_explosion_effect.png"
+      },
+      {
+        "type": "image",
+        "key": "judgement_arrow_projectile",
+        "url": "https://cdn-game-mcp.gambo.ai/6b144446-8592-41d1-ac24-8c8b4e0eb51c/images/judgement_arrow_projectile.png"
+      },
+      {
+        "type": "audio",
+        "key": "judgement_arrow_cast",
+        "url": "https://cdn-game-mcp.gambo.ai/918a48f8-003f-49c1-aa96-05a7efde37da/sound_effects/judgement_arrow_cast.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "judgement_arrow_fire",
+        "url": "https://cdn-game-mcp.gambo.ai/915ea9de-fabe-4c74-a849-c2b3174a40ea/sound_effects/judgement_arrow_fire.mp3"
+      },
+      {
+        "type": "audio",
+        "key": "blood_explosion_hit",
+        "url": "https://cdn-game-mcp.gambo.ai/d9ee61c1-0c9f-440f-afe1-9dbb3e658ac4/sound_effects/blood_explosion_hit.mp3"
+      },
+      {
+        "type": "image",
+        "key": "archer_skill_5_judgement_arrow_icon",
+        "url": "https://cdn-game-mcp.gambo.ai/b89317a0-4267-48bb-a6db-4765731652a7/images/archer_skill_5_judgement_arrow_icon.png"
+      }
+    ]
+  },
+  "archer_skill6_assets": {
+    "files": [
+      {
+        "type": "image",
+        "key": "ult_charge_circle",
+        "url": "https://cdn-game-mcp.gambo.ai/65344/images/ult_charge_circle.png"
+      },
+      {
+        "type": "image",
+        "key": "enemy_cross_mark",
+        "url": "https://cdn-game-mcp.gambo.ai/65344/images/enemy_cross_mark.png"
+      },
+      {
+        "type": "image",
+        "key": "arrow_volley_fan",
+        "url": "https://cdn-game-mcp.gambo.ai/65344/images/arrow_volley_fan.png"
+      },
+      {
+        "type": "image",
+        "key": "blood_hit_burst",
+        "url": "https://cdn-game-mcp.gambo.ai/65344/images/blood_hit_burst.png"
+      },
+      {
+        "type": "image",
+        "key": "arrow_embedded_stuck",
+        "url": "https://cdn-game-mcp.gambo.ai/65344/images/arrow_embedded_stuck.png"
+      },
+      {
+        "type": "image",
+        "key": "blood_arrow_hit_impact",
+        "url": "https://cdn-gambo-public.gambo.ai/assets/i-mMdGUpNlJs5SB3pTCw5.png"
       }
     ]
   },
