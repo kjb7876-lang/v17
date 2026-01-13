@@ -137,7 +137,67 @@
       {
         "type": "image",
         "key": "seven_headed_dragon",
-        "url": "https://cdn-game-mcp.gambo.ai/45de885d-9d87-4c0b-9960-10c147d53ec7/uploads/45de885d-9d87-4c0b-9960-10c147d53ec7.png"
+        "url": "https://cdn-gambo-public.gambo.ai/assets/Dq2zSEUcSbZ1XDa9kfx2f.png"
+      },
+      {
+        "type": "image",
+        "key": "seven_headed_dragon_idle_front_frame1",
+        "url": "https://cdn-game-mcp.gambo.ai/e995a3b3-34a7-43f0-a5bd-557270e87279/animations/seven_headed_dragon_idle_front/frame_1.png"
+      },
+      {
+        "type": "image",
+        "key": "seven_headed_dragon_idle_front_frame2",
+        "url": "https://cdn-game-mcp.gambo.ai/31ff10bb-b9b2-4b91-af4d-299c29b0a2ef/animations/seven_headed_dragon_idle_front/frame_2.png"
+      },
+      {
+        "type": "image",
+        "key": "seven_headed_dragon_idle_R_frame1",
+        "url": "https://cdn-game-mcp.gambo.ai/876ef115-cc82-46cf-904f-dec11e90b537/animations/seven_headed_dragon_idle_R/frame_1.png"
+      },
+      {
+        "type": "image",
+        "key": "seven_headed_dragon_idle_R_frame2",
+        "url": "https://cdn-game-mcp.gambo.ai/0175379a-ca0a-4d42-819f-78eff62592eb/animations/seven_headed_dragon_idle_R/frame_2.png"
+      },
+      {
+        "type": "image",
+        "key": "seven_headed_dragon_idle_back_frame1",
+        "url": "https://cdn-game-mcp.gambo.ai/63c7d492-d61f-47c3-b813-198d8425766e/animations/seven_headed_dragon_idle_back/frame_1.png"
+      },
+      {
+        "type": "image",
+        "key": "seven_headed_dragon_idle_back_frame2",
+        "url": "https://cdn-game-mcp.gambo.ai/57edc8e4-3823-4240-89a0-f2f0e3603668/animations/seven_headed_dragon_idle_back/frame_2.png"
+      },
+      {
+        "type": "image",
+        "key": "seven_headed_dragon_walk_R_frame1",
+        "url": "https://cdn-game-mcp.gambo.ai/e995a3b3-34a7-43f0-a5bd-557270e87279/animations/seven_headed_dragon_idle_front/frame_1.png"
+      },
+      {
+        "type": "image",
+        "key": "seven_headed_dragon_walk_R_frame2",
+        "url": "https://cdn-game-mcp.gambo.ai/31ff10bb-b9b2-4b91-af4d-299c29b0a2ef/animations/seven_headed_dragon_idle_front/frame_2.png"
+      },
+      {
+        "type": "image",
+        "key": "seven_headed_dragon_attack_R_frame1",
+        "url": "https://cdn-game-mcp.gambo.ai/bd6bb7ae-1cd3-49c9-9050-798e57ec7542/animations/seven_headed_dragon_attack_R/frame_1.png"
+      },
+      {
+        "type": "image",
+        "key": "seven_headed_dragon_attack_R_frame2",
+        "url": "https://cdn-game-mcp.gambo.ai/bf2b7e81-ea62-4061-83d5-34e46edde601/animations/seven_headed_dragon_attack_R/frame_2.png"
+      },
+      {
+        "type": "image",
+        "key": "seven_headed_dragon_die_R_frame1",
+        "url": "https://cdn-game-mcp.gambo.ai/8706389e-3f9a-437c-b5bd-0292edf57401/animations/seven_headed_dragon_die_R/frame_1.png"
+      },
+      {
+        "type": "image",
+        "key": "seven_headed_dragon_die_R_frame2",
+        "url": "https://cdn-game-mcp.gambo.ai/fb32ea9a-f3b4-4ecc-a661-20213adab095/animations/seven_headed_dragon_die_R/frame_2.png"
       },
       {
         "type": "image",
@@ -1469,12 +1529,14 @@
   },
   "eldritch_abomination_assets": {
     "files": [
-      { "type": "image", "key": "eldritch_abomination_idle_front_frame1", "url": "https://cdn-game-mcp.gambo.ai/c55e9f0a-e1ac-40a1-bb61-b5f21bb90f74/animations/eldritch_abomination_idle_front/frame_1.png" },
-      { "type": "image", "key": "eldritch_abomination_idle_front_frame2", "url": "https://cdn-game-mcp.gambo.ai/b09c3bf6-0c26-42ba-a9f0-a2d96d8a3de2/animations/eldritch_abomination_idle_front/frame_2.png" },
-      { "type": "image", "key": "eldritch_abomination_idle_R_frame1", "url": "https://cdn-game-mcp.gambo.ai/33e9c723-2842-4c0c-b35f-b00f6f4a390a/animations/eldritch_abomination_idle_R/frame_1.png" },
-      { "type": "image", "key": "eldritch_abomination_idle_R_frame2", "url": "https://cdn-game-mcp.gambo.ai/c0a5fd6e-fb88-4eaf-bbcc-38b18b70c2b2/animations/eldritch_abomination_idle_R/frame_2.png" },
-      { "type": "image", "key": "eldritch_abomination_idle_back_frame1", "url": "https://cdn-game-mcp.gambo.ai/25bb6da4-1e2b-4a4f-affe-d7eecf67bb2e/animations/eldritch_abomination_idle_back/frame_1.png" },
-      { "type": "image", "key": "eldritch_abomination_idle_back_frame2", "url": "https://cdn-game-mcp.gambo.ai/ce97e1a3-4015-4dd0-ace3-66e6cbbe3fbc/animations/eldritch_abomination_idle_back/frame_2.png" }
+      { "type": "image", "key": "eldritch_abomination_spritesheet", "url": "https://cdn-gambo-public.gambo.ai/assets/UlpqGNzsqZjfRmn7o4R9R.png" },
+      { "type": "image", "key": "eldritch_abomination_front", "url": "https://cdn-gambo-public.gambo.ai/assets/AoyvCXpetth2HKhCdfmiZ.png" },
+      { "type": "image", "key": "eldritch_abomination_idle_front_frame1", "url": "https://cdn-gambo-public.gambo.ai/assets/AoyvCXpetth2HKhCdfmiZ.png" },
+      { "type": "image", "key": "eldritch_abomination_idle_front_frame2", "url": "https://cdn-gambo-public.gambo.ai/assets/AoyvCXpetth2HKhCdfmiZ.png" },
+      { "type": "image", "key": "eldritch_abomination_idle_R_frame1", "url": "https://cdn-gambo-public.gambo.ai/assets/AoyvCXpetth2HKhCdfmiZ.png" },
+      { "type": "image", "key": "eldritch_abomination_idle_R_frame2", "url": "https://cdn-gambo-public.gambo.ai/assets/AoyvCXpetth2HKhCdfmiZ.png" },
+      { "type": "image", "key": "eldritch_abomination_idle_back_frame1", "url": "https://cdn-gambo-public.gambo.ai/assets/AoyvCXpetth2HKhCdfmiZ.png" },
+      { "type": "image", "key": "eldritch_abomination_idle_back_frame2", "url": "https://cdn-gambo-public.gambo.ai/assets/AoyvCXpetth2HKhCdfmiZ.png" }
     ]
   },
   "apocalypse_knight_assets": {

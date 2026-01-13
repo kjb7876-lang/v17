@@ -1506,6 +1506,102 @@
       "repeat": 0,
       "originX": 0.192,
       "originY": 1.0
+    },
+    {
+      "key": "seven_headed_dragon_idle_front_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "seven_headed_dragon_idle_front_frame1", "duration": 800 },
+        { "key": "seven_headed_dragon_idle_front_frame2", "duration": 800 }
+      ],
+      "repeat": -1,
+      "originX": 0.5,
+      "originY": 1.0
+    },
+    {
+      "key": "seven_headed_dragon_idle_R_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "seven_headed_dragon_idle_R_frame1", "duration": 800 },
+        { "key": "seven_headed_dragon_idle_R_frame2", "duration": 800 }
+      ],
+      "repeat": -1,
+      "originX": 0.5,
+      "originY": 1.0
+    },
+    {
+      "key": "seven_headed_dragon_idle_back_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "seven_headed_dragon_idle_back_frame1", "duration": 800 },
+        { "key": "seven_headed_dragon_idle_back_frame2", "duration": 800 }
+      ],
+      "repeat": -1,
+      "originX": 0.5,
+      "originY": 1.0
+    },
+    {
+      "key": "seven_headed_dragon_walk_R_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "seven_headed_dragon_walk_R_frame1", "duration": 200 },
+        { "key": "seven_headed_dragon_walk_R_frame2", "duration": 200 }
+      ],
+      "repeat": -1,
+      "originX": 0.5,
+      "originY": 1.0
+    },
+    {
+      "key": "seven_headed_dragon_attack_R_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "seven_headed_dragon_attack_R_frame1", "duration": 150 },
+        { "key": "seven_headed_dragon_attack_R_frame2", "duration": 250 }
+      ],
+      "repeat": 0,
+      "originX": 0.401,
+      "originY": 1.0
+    },
+    {
+      "key": "seven_headed_dragon_die_R_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "seven_headed_dragon_die_R_frame1", "duration": 400 },
+        { "key": "seven_headed_dragon_die_R_frame2", "duration": 600 }
+      ],
+      "repeat": 0,
+      "originX": 0.419,
+      "originY": 1.0
+    },
+    {
+      "key": "infernal_fire_lamb_idle_front_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "infernal_fire_lamb", "duration": 800 }
+      ],
+      "repeat": -1,
+      "originX": 0.5,
+      "originY": 1.0
+    },
+    {
+      "key": "infernal_fire_lamb_idle_R_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "infernal_fire_lamb", "duration": 800 }
+      ],
+      "repeat": -1,
+      "originX": 0.5,
+      "originY": 1.0
+    },
+    {
+      "key": "infernal_fire_lamb_idle_back_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "infernal_fire_lamb", "duration": 800 }
+      ],
+      "repeat": -1,
+      "originX": 0.5,
+      "originY": 1.0
     }
   ]
 }
