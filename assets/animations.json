@@ -1602,6 +1602,94 @@
       "repeat": -1,
       "originX": 0.5,
       "originY": 1.0
+    },
+    {
+      "key": "leopard_beast_boss_idle_R_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "leopard_beast_boss_idle_R_frame1", "duration": 800 },
+        { "key": "leopard_beast_boss_idle_R_frame2", "duration": 800 }
+      ],
+      "repeat": -1,
+      "originX": 0.5,
+      "originY": 1.0
+    },
+    {
+      "key": "leopard_beast_boss_idle_front_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "leopard_beast_boss_idle_front_frame1", "duration": 800 },
+        { "key": "leopard_beast_boss_idle_front_frame2", "duration": 800 }
+      ],
+      "repeat": -1,
+      "originX": 0.5,
+      "originY": 1.0
+    },
+    {
+      "key": "leopard_beast_boss_idle_back_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "leopard_beast_boss_idle_back_frame1", "duration": 800 },
+        { "key": "leopard_beast_boss_idle_back_frame2", "duration": 800 }
+      ],
+      "repeat": -1,
+      "originX": 0.5,
+      "originY": 1.0
+    },
+    {
+      "key": "leopard_beast_boss_walk_R_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "leopard_beast_boss_walk_R_frame1", "duration": 150 },
+        { "key": "leopard_beast_boss_walk_R_frame2", "duration": 150 }
+      ],
+      "repeat": -1,
+      "originX": 0.43,
+      "originY": 1.0
+    },
+    {
+      "key": "leopard_beast_boss_walk_front_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "leopard_beast_boss_walk_front_frame1", "duration": 150 },
+        { "key": "leopard_beast_boss_walk_front_frame2", "duration": 150 }
+      ],
+      "repeat": -1,
+      "originX": 0.5,
+      "originY": 0.893
+    },
+    {
+      "key": "leopard_beast_boss_walk_back_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "leopard_beast_boss_walk_back_frame1", "duration": 150 },
+        { "key": "leopard_beast_boss_walk_back_frame2", "duration": 150 }
+      ],
+      "repeat": -1,
+      "originX": 0.5,
+      "originY": 1.0
+    },
+    {
+      "key": "leopard_beast_boss_attack_R_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "leopard_beast_boss_attack_R_frame1", "duration": 100 },
+        { "key": "leopard_beast_boss_attack_R_frame2", "duration": 200 }
+      ],
+      "repeat": 0,
+      "originX": 0.478,
+      "originY": 1.0
+    },
+    {
+      "key": "leopard_beast_boss_die_R_anim",
+      "type": "frame",
+      "frames": [
+        { "key": "leopard_beast_boss_attack_R_frame1", "duration": 300 },
+        { "key": "leopard_beast_boss_attack_R_frame2", "duration": 400 }
+      ],
+      "repeat": 0,
+      "originX": 0.478,
+      "originY": 1.0
     }
   ]
 }

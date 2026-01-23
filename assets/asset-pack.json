@@ -117,6 +117,11 @@
       },
       {
         "type": "image",
+        "key": "lust_map_background",
+        "url": "https://cdn-gambo-public.gambo.ai/assets/QypcvvKf3Q0XNSb3pOEdy.png"
+      },
+      {
+        "type": "image",
         "key": "glacial_machine_background",
         "url": "https://cdn-game-mcp.gambo.ai/3a278546-f4ad-4aae-8428-5745986c4740/uploads/3a278546-f4ad-4aae-8428-5745986c4740.png"
       },
@@ -1145,6 +1150,11 @@
     "files": [
       {
         "type": "image",
+        "key": "red_high_heel_projectile",
+        "url": "https://cdn-game-mcp.gambo.ai/d64cd9ae-7915-4dd7-a03c-999e52ad3421/images/red_high_heel_projectile.png"
+      },
+      {
+        "type": "image",
         "key": "seductress_boss_side_view",
         "url": "https://cdn-game-mcp.gambo.ai/86438942-5bfe-428d-be9f-d28a98a81487/images/Seductress Boss_side_view.png"
       },
@@ -1608,6 +1618,35 @@
       { "type": "image", "key": "infernal_chimera_attack_R_frame2", "url": "https://cdn-game-mcp.gambo.ai/91e13ce4-8e69-42a5-aefd-3acf4aabe8ac/animations/infernal_chimera_attack_R/frame_2.png" },
       { "type": "image", "key": "infernal_chimera_die_R_frame1", "url": "https://cdn-game-mcp.gambo.ai/7340c384-d0bf-49d2-9943-3d1ffe03eefc/animations/infernal_chimera_die_R/frame_1.png" },
       { "type": "image", "key": "infernal_chimera_die_R_frame2", "url": "https://cdn-game-mcp.gambo.ai/e565ebf4-e37f-4c82-bd16-238899d4c74c/animations/infernal_chimera_die_R/frame_2.png" }
+    ]
+  },
+  "leopard_beast_boss_assets": {
+    "files": [
+      { "type": "image", "key": "leopard_beast_boss_side_view", "url": "https://cdn-game-mcp.gambo.ai/995e9e29-027c-4f9c-aa0b-1f98c856403f/uploads/995e9e29-027c-4f9c-aa0b-1f98c856403f.png" },
+      { "type": "image", "key": "leopard_beast_boss_idle_R_frame1", "url": "https://cdn-game-mcp.gambo.ai/3a811977-9df0-4a04-9c4a-d0c66da3141c/animations/leopard_beast_boss_idle_R/frame_1.png" },
+      { "type": "image", "key": "leopard_beast_boss_idle_R_frame2", "url": "https://cdn-game-mcp.gambo.ai/e43d3523-4b1e-4be3-9f2a-772d5df10edc/animations/leopard_beast_boss_idle_R/frame_2.png" },
+      { "type": "image", "key": "leopard_beast_boss_idle_front_frame1", "url": "https://cdn-game-mcp.gambo.ai/58954d21-e079-4fb4-a26e-7cc5e4f8b78b/animations/leopard_beast_boss_idle_front/frame_1.png" },
+      { "type": "image", "key": "leopard_beast_boss_idle_front_frame2", "url": "https://cdn-game-mcp.gambo.ai/3abdf7b0-55b5-4be8-ad60-dfb08f5476b1/animations/leopard_beast_boss_idle_front/frame_2.png" },
+      { "type": "image", "key": "leopard_beast_boss_idle_back_frame1", "url": "https://cdn-game-mcp.gambo.ai/ce80cd21-8f8e-42e6-ab5a-5c52718c8cfa/animations/leopard_beast_boss_idle_back/frame_1.png" },
+      { "type": "image", "key": "leopard_beast_boss_idle_back_frame2", "url": "https://cdn-game-mcp.gambo.ai/5cac3aaf-32c6-44c4-abb1-142d37052140/animations/leopard_beast_boss_idle_back/frame_2.png" },
+      { "type": "image", "key": "leopard_beast_boss_walk_R_frame1", "url": "https://cdn-game-mcp.gambo.ai/0ebfb79e-68a1-4a65-889c-de174dc0a5ba/animations/leopard_beast_boss_walk_R/frame_1.png" },
+      { "type": "image", "key": "leopard_beast_boss_walk_R_frame2", "url": "https://cdn-game-mcp.gambo.ai/535908b9-b8e2-4859-94ae-4730a81f5e60/animations/leopard_beast_boss_walk_R/frame_2.png" },
+      { "type": "image", "key": "leopard_beast_boss_walk_front_frame1", "url": "https://cdn-game-mcp.gambo.ai/eda0e1d4-5672-4cea-9c11-9422d10404c0/animations/leopard_beast_boss_walk_front/frame_1.png" },
+      { "type": "image", "key": "leopard_beast_boss_walk_front_frame2", "url": "https://cdn-game-mcp.gambo.ai/2e6bc2aa-8a35-48f7-846e-cd09ab318441/animations/leopard_beast_boss_walk_front/frame_2.png" },
+      { "type": "image", "key": "leopard_beast_boss_walk_back_frame1", "url": "https://cdn-game-mcp.gambo.ai/98a4ff77-4e7a-4e68-918c-f2f0b1e753a9/animations/leopard_beast_boss_walk_back/frame_1.png" },
+      { "type": "image", "key": "leopard_beast_boss_walk_back_frame2", "url": "https://cdn-game-mcp.gambo.ai/84af551f-f255-4917-8c1d-0f29edc39ba7/animations/leopard_beast_boss_walk_back/frame_2.png" },
+      { "type": "image", "key": "leopard_beast_boss_attack_R_frame1", "url": "https://cdn-game-mcp.gambo.ai/e66c73c3-d4b4-45ae-8c10-048c8b0a7921/animations/leopard_beast_boss_attack_R/frame_1.png" },
+      { "type": "image", "key": "leopard_beast_boss_attack_R_frame2", "url": "https://cdn-game-mcp.gambo.ai/5a54c0c7-1326-4778-b43c-daf6ff59b883/animations/leopard_beast_boss_attack_R/frame_2.png" },
+      { "type": "audio", "key": "leopard_beast_roar", "url": "https://cdn-game-mcp.gambo.ai/4540a864-4277-49e0-8e5d-def317694b3b/sound_effects/leopard_beast_roar.mp3" },
+      { "type": "audio", "key": "leopard_claw_swipe", "url": "https://cdn-game-mcp.gambo.ai/a6084ce3-ccce-4059-aa01-b3910b2a8923/sound_effects/leopard_claw_swipe.mp3" },
+      { "type": "audio", "key": "leopard_pounce", "url": "https://cdn-game-mcp.gambo.ai/aa9ad2be-f58f-41b4-a930-0bd20e1ca3c3/sound_effects/leopard_pounce.mp3" }
+    ]
+  },
+  "infernal_chimera_special_assets": {
+    "files": [
+      { "type": "image", "key": "mechanical_tentacle_eruption", "url": "https://cdn-game-mcp.gambo.ai/f0fa7e16-beab-41c1-9fe8-de68cad959b2/images/mechanical_tentacle_eruption.png" },
+      { "type": "audio", "key": "mechanical_tentacle_emerge", "url": "https://cdn-game-mcp.gambo.ai/9c8283ec-1418-4d78-99a9-01aaa2c3875e/sound_effects/mechanical_tentacle_emerge.mp3" },
+      { "type": "audio", "key": "mechanical_tentacle_strike", "url": "https://cdn-game-mcp.gambo.ai/f96a244d-adf5-476a-a971-2c3f805593bd/sound_effects/mechanical_tentacle_strike.mp3" }
     ]
   },
   "fire_goat_boss_assets": {
