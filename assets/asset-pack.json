@@ -852,7 +852,8 @@
       { "type": "image", "key": "spider_monster_attack_R_frame1", "url": "https://cdn-game-mcp.gambo.ai/247d09da-972a-49be-8319-04a1470e53b5/animations/spider_monster_attack_R/frame_1.png" },
       { "type": "image", "key": "spider_monster_attack_R_frame2", "url": "https://cdn-game-mcp.gambo.ai/b0b51733-6941-4f6f-9429-b46d76371d06/animations/spider_monster_attack_R/frame_2.png" },
       { "type": "image", "key": "spider_monster_die_R_frame1", "url": "https://cdn-game-mcp.gambo.ai/e3627979-cc5c-4664-839c-4ebdf9c81155/animations/spider_monster_die_R/frame_1.png" },
-      { "type": "image", "key": "spider_monster_die_R_frame2", "url": "https://cdn-game-mcp.gambo.ai/7137fcd4-6173-4493-afc6-b165b1fc4e5e/animations/spider_monster_die_R/frame_2.png" }
+      { "type": "image", "key": "spider_monster_die_R_frame2", "url": "https://cdn-game-mcp.gambo.ai/7137fcd4-6173-4493-afc6-b165b1fc4e5e/animations/spider_monster_die_R/frame_2.png" },
+      { "type": "image", "key": "white_holy_wings", "url": "https://cdn-game-mcp.gambo.ai/b50e22d3-7a05-42b8-bb9d-32479023f564/images/white_holy_wings.png" }
     ]
   },
   "tilesets": {
