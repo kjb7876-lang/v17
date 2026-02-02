@@ -403,8 +403,8 @@
         border: 1px solid rgba(124, 58, 237, 0.3);
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-CQsWJcFv.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-Bs9A62tw.css">
+    <script type="module" crossorigin src="./assets/index-BdOE84FP.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BHmE3crK.css">
   </head>
   <body>
     <!-- 3-Column Layout: Left UI | Game | Right UI -->
@@ -1049,15 +1049,18 @@
         function startWatchdog() {
           if (watchdogTimeout) clearTimeout(watchdogTimeout);
           
-          // 20 second timeout for first update (increased for slower mobile devices)
-          // The game signals multiple times during loading, so if we don't hear back in 20s, it's truly stuck
+          // SAFARI FIX: Use longer timeout for Safari (30s) vs others (20s)
+          // Safari can be slower to initialize, especially on GitHub Pages
+          var timeout = isIOSSafari() ? 30000 : 20000;
+          console.log('[Watchdog] Starting with timeout:', timeout, 'ms, Safari:', isIOSSafari());
+          
           watchdogTimeout = setTimeout(function() {
             if (!gameStarted && !watchdogTriggered) {
               watchdogTriggered = true;
               console.error('[Watchdog] Game appears stuck - triggering recovery');
               showWatchdogOverlay();
             }
-          }, 20000);
+          }, timeout);
         }
         
         function stopWatchdog() {
@@ -1169,6 +1172,13 @@
             ((navigator.platform || '') === 'MacIntel' && navigator.maxTouchPoints > 1);
           var isSafari = /Safari/.test(ua) && !/Chrome/.test(ua) && !/CriOS/.test(ua);
           return isIOS || isSafari;
+        }
+        
+        // SAFARI FIX: Log Safari detection for debugging
+        if (isIOSSafari()) {
+          console.log('[Safari] Safari/iOS detected - using compatibility mode');
+          // Set a flag for the game to use
+          window.isSafariBrowser = true;
         }
         
         // MOBILE SAFEMODE: Enter safe mode with minimal settings
