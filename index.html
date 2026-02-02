@@ -403,7 +403,7 @@
         border: 1px solid rgba(124, 58, 237, 0.3);
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-DSfKmPqM.js"></script>
+    <script type="module" crossorigin src="./assets/index-DoqP7Nkv.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-BHmE3crK.css">
   </head>
   <body>
@@ -1049,9 +1049,9 @@
         function startWatchdog() {
           if (watchdogTimeout) clearTimeout(watchdogTimeout);
           
-          // SAFARI FIX: Use longer timeout for Safari (30s) vs others (20s)
-          // Safari can be slower to initialize, especially on GitHub Pages
-          var timeout = isIOSSafari() ? 30000 : 20000;
+          // MOBILE RELOAD FIX: Increased timeouts to prevent reload loops
+          // Safari: 60s, Others: 40s (doubled from previous values)
+          var timeout = isIOSSafari() ? 60000 : 40000;
           console.log('[Watchdog] Starting with timeout:', timeout, 'ms, Safari:', isIOSSafari());
           
           watchdogTimeout = setTimeout(function() {
@@ -1086,26 +1086,24 @@
           sessionStorage.setItem('recoveryAttempt', String(recoveryAttempt));
           window.recoveryAttempt = recoveryAttempt;
           
+          // MOBILE RELOAD FIX: If recovery was already attempted, do NOT auto-reload
+          // This prevents infinite reload loops on mobile
+          if (recoveryAttempt >= 1) {
+            if (status) {
+              status.textContent = 'Loading is taking longer than expected. Please choose an option below.';
+            }
+            console.log('[Watchdog] Recovery already attempted (' + recoveryAttempt + '), waiting for user action');
+            // NO auto-reload - let user decide
+            return;
+          }
+          
           if (status) {
             status.textContent = 'Recovery attempt ' + recoveryAttempt + ' of ' + maxRecoveryAttempts;
           }
           
-          // Auto-recovery after 3 seconds
-          setTimeout(function() {
-            if (recoveryAttempt < maxRecoveryAttempts) {
-              if (status) {
-                status.textContent = 'Reloading with safe settings...';
-              }
-              // Force canvas and lower resolution on next load
-              sessionStorage.setItem('forceCanvasRenderer', 'true');
-              sessionStorage.setItem('forceResolution', '1');
-              window.location.reload();
-            } else {
-              if (status) {
-                status.textContent = 'Max attempts reached. Please try Safe Mode manually.';
-              }
-            }
-          }, 3000);
+          // REMOVED: Auto-recovery after 3 seconds - now requires user action
+          // This prevents reload loops on slow mobile connections
+          console.log('[Watchdog] Showing recovery options, no auto-reload');
         }
         
         // Expose watchdog controls
@@ -1290,44 +1288,18 @@
               webglLostOverlay.classList.add('visible');
               showError('WebGL', 'Graphics context lost (attempt ' + webglRecoveryAttempts + ')', '');
               
-              // MOBILE SAFEMODE: Different behavior based on device and attempt count
-              if (isIOSSafari() || webglRecoveryAttempts >= 2) {
-                // iOS Safari or multiple failures: recommend Safe Mode immediately
-                if (countdownEl) {
-                  countdownEl.textContent = 'iOS detected - Safe Mode recommended';
+              // MOBILE RELOAD FIX: Never auto-reload or auto-enter safe mode
+              // Always let user choose the recovery option to prevent reload loops
+              if (countdownEl) {
+                if (isIOSSafari()) {
+                  countdownEl.textContent = 'Graphics error detected. Safe Mode is recommended for iOS.';
+                } else {
+                  countdownEl.textContent = 'Graphics error detected. Please choose a recovery option below.';
                 }
-                // Auto-enter safe mode after 5 seconds if no user action
-                setTimeout(function() {
-                  if (webglLostOverlay.classList.contains('visible')) {
-                    console.log('[WebGL] Auto-entering Safe Mode for iOS stability');
-                    window.enterSafeMode();
-                  }
-                }, 5000);
-              } else {
-                // First attempt on non-iOS: try automatic recovery
-                var countdown = 5;
-                if (countdownEl) {
-                  countdownEl.textContent = 'Auto-recovery in ' + countdown + 's...';
-                }
-                
-                var countdownInterval = setInterval(function() {
-                  countdown--;
-                  if (countdownEl) {
-                    countdownEl.textContent = 'Auto-recovery in ' + countdown + 's...';
-                  }
-                  if (countdown <= 0) {
-                    clearInterval(countdownInterval);
-                    
-                    if (webglRecoveryAttempts >= maxWebglRecovery) {
-                      // Max attempts reached: force safe mode
-                      window.enterSafeMode();
-                    } else {
-                      // Try reload first
-                      window.location.reload();
-                    }
-                  }
-                }, 1000);
               }
+              
+              // NO auto-recovery - user must choose
+              console.log('[WebGL] Context lost - waiting for user action (no auto-reload)');
             }, false);
             
             canvas.addEventListener('webglcontextrestored', function(event) {
